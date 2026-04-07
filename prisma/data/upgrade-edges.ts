@@ -107,13 +107,13 @@ export const sleepingPadEdges: UpgradeEdge[] = [
   // R-value progression
   {
     from: 'Alton Ultralight Insulated Sleeping Mat R4',
-    to: 'NEMO Tensor All Season Insulated Sleeping Pad',
+    to: 'NEMO Tensor All Season Insulated Sleeping Mat Regular Mummy',
     type: 'quality',
     notes: 'R5.4 vs R4.0, quieter Spaceframe™ baffles',
   },
   {
-    from: 'NEMO Tensor All Season Insulated Sleeping Pad',
-    to: 'NEMO Tensor Extreme Conditions Sleeping Pad',
+    from: 'NEMO Tensor All Season Insulated Sleeping Mat Regular Mummy',
+    to: 'NEMO Tensor Extreme Conditions Sleeping Mat Regular Mummy',
     type: 'quality',
     notes: 'R8.5 — for alpine and winter AU conditions',
   },
@@ -131,13 +131,13 @@ export const backpackEdges: UpgradeEdge[] = [
   // Framed → Frameless
   {
     from: 'Osprey Exos Pro 55',
-    to: 'Gossamer Gear Gorilla 40',
+    to: 'Gossamer Gear Gorilla 40L',
     type: 'alternative',
     notes: 'Frameless — lighter but less comfortable with heavy loads',
   },
   {
-    from: 'Gossamer Gear Gorilla 40',
-    to: 'Hyperlite Mountain Gear 3400 Southwest',
+    from: 'Gossamer Gear Gorilla 40L',
+    to: 'Hyperlite Mountain Gear 3400 Southwest 55L',
     type: 'quality',
     notes: 'DCF is waterproof and lighter — big price jump',
   },

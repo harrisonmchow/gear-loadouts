@@ -119,15 +119,8 @@ A Next.js platform for backpackers to showcase gear loadouts, track stats, disco
    cp .env.example .env.local
    ```
 
-   Required variables:
-   - `DATABASE_URL` — PostgreSQL connection string
-   - `NEXTAUTH_SECRET` — Auth secret key
-   - `NEXTAUTH_URL` — App URL (http://localhost:3000 for dev)
-   - `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` — Google OAuth
-   - `SUPABASE_URL` / `SUPABASE_ANON_KEY` / `SUPABASE_SERVICE_ROLE_KEY` — Supabase
-   - `VAPID_PUBLIC_KEY` / `VAPID_PRIVATE_KEY` / `VAPID_EMAIL` — Push notifications
-   - `RESEND_API_KEY` — Email
-   - `CRON_SECRET` — Cron job auth
+   Configure the variables (see [Environment Variables](#environment-variables) below for details).
+   At minimum, you need `DATABASE_URL` and `AUTH_SECRET` to run locally.
 
 4. Set up the database:
    ```bash
@@ -141,3 +134,58 @@ A Next.js platform for backpackers to showcase gear loadouts, track stats, disco
    ```
 
    Open [http://localhost:3000](http://localhost:3000).
+
+## Environment Variables
+
+Copy `.env.example` to `.env.local` and configure the following:
+
+### Database
+
+| Variable | Description |
+|---|---|
+| `DATABASE_URL` | PostgreSQL connection string. Used by Prisma for all DB operations. |
+
+### Auth
+
+| Variable | Description |
+|---|---|
+| `AUTH_SECRET` | Random secret used by NextAuth.js v5 to sign/encrypt JWTs and session cookies. Generate with `npx auth secret` or `openssl rand -base64 32`. |
+| `AUTH_URL` | Base URL of the app. NextAuth uses it for callback URLs and redirects. `http://localhost:3000` locally, your Vercel URL in production. |
+| `GOOGLE_CLIENT_ID` | OAuth 2.0 client ID from Google Cloud Console. Enables "Sign in with Google". |
+| `GOOGLE_CLIENT_SECRET` | Corresponding secret for Google OAuth. Both ID and secret are required for Google sign-in. |
+
+### Storage
+
+| Variable | Description |
+|---|---|
+| `SUPABASE_URL` | Your Supabase project URL (e.g. `https://xyz.supabase.co`). Used for file storage (avatars, gear images). |
+| `SUPABASE_ANON_KEY` | Public/anon key for client-side Supabase access (row-level security enforced). |
+| `SUPABASE_SERVICE_ROLE_KEY` | Admin key that bypasses RLS. Used server-side only for privileged storage operations. |
+
+### Push Notifications
+
+| Variable | Description |
+|---|---|
+| `VAPID_PUBLIC_KEY` | Public key for Web Push (VAPID protocol). Sent to the browser when subscribing to push notifications. Generate a keypair with `npx web-push generate-vapid-keys`. |
+| `VAPID_PRIVATE_KEY` | Private key for signing push messages server-side. Never exposed to the client. |
+| `VAPID_EMAIL` | Contact email sent to push services so they can reach you if there's an issue with your push messages. |
+
+### Email
+
+| Variable | Description |
+|---|---|
+| `RESEND_API_KEY` | API key from [Resend](https://resend.com). Used as a fallback to send deal alert emails when push notifications aren't available. |
+
+### Cron Security
+
+| Variable | Description |
+|---|---|
+| `CRON_SECRET` | Secret token that Vercel sends in the `Authorization` header when triggering `/api/cron/deal-check`. Prevents unauthorized access to the cron route. |
+
+### Scraping
+
+| Variable | Description |
+|---|---|
+| `SCRAPER_DELAY_MS` | Delay in milliseconds between scraping requests to retailer sites. Defaults to `2000` to respect rate limits. |
+
+> **Minimum to run locally:** `DATABASE_URL` and `AUTH_SECRET`. Google OAuth, Supabase, VAPID, Resend, and cron variables can be left empty — those features just won't work until configured.

@@ -1,0 +1,233 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String             @id @default(cuid())
+  email            String             @unique
+  username         String             @unique
+  passwordHash     String?
+  avatarUrl        String?
+  bio              String?
+  region           String             @default("AU")
+  preferences      Json?
+  createdAt        DateTime           @default(now())
+  loadouts         Loadout[]
+  ownedGear        UserGear[]
+  reviews          Review[]
+  watchlist        WatchlistItem[]
+  followers        Follow[]           @relation("following")
+  following        Follow[]           @relation("follower")
+  pushSubscription PushSubscription?
+  accounts         Account[]
+  sessions         Session[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Follow {
+  followerId  String
+  followingId String
+  follower    User   @relation("follower", fields: [followerId], references: [id])
+  following   User   @relation("following", fields: [followingId], references: [id])
+
+  @@id([followerId, followingId])
+}
+
+model GearCategory {
+  id           String     @id @default(cuid())
+  name         String     @unique
+  displayName  String
+  icon         String?
+  ratingFields Json
+  items        GearItem[]
+}
+
+model GearItem {
+  id             String          @id @default(cuid())
+  name           String
+  brand          String
+  categoryId     String
+  category       GearCategory    @relation(fields: [categoryId], references: [id])
+  weightGrams    Int?
+  priceCents     Int?
+  currency       String          @default("AUD")
+  imageUrl       String?
+  href           String?
+  specs          Json?
+  isDiscontinued Boolean         @default(false)
+  createdAt      DateTime        @default(now())
+  reviews        Review[]
+  loadoutItems   LoadoutItem[]
+  ownedBy        UserGear[]
+  watchlistItems WatchlistItem[]
+  upgradesFrom   UpgradeEdge[]   @relation("from")
+  upgradesTo     UpgradeEdge[]   @relation("to")
+  deals           Deal[]
+  externalReviews ExternalReview[]
+}
+
+model UpgradeEdge {
+  id       String   @id @default(cuid())
+  fromId   String
+  toId     String
+  from     GearItem @relation("from", fields: [fromId], references: [id])
+  to       GearItem @relation("to", fields: [toId], references: [id])
+  edgeType String
+  notes    String?
+
+  @@unique([fromId, toId])
+}
+
+model Loadout {
+  id        String       @id @default(cuid())
+  userId    String
+  user      User         @relation(fields: [userId], references: [id])
+  name      String       @default("My Loadout")
+  isActive  Boolean      @default(false)
+  createdAt DateTime     @default(now())
+  items     LoadoutItem[]
+}
+
+model LoadoutItem {
+  id        String   @id @default(cuid())
+  loadoutId String
+  loadout   Loadout  @relation(fields: [loadoutId], references: [id], onDelete: Cascade)
+  gearId    String
+  gear      GearItem @relation(fields: [gearId], references: [id])
+  slotType  String
+  quantity  Int      @default(1)
+  isWorn    Boolean  @default(false)
+}
+
+model UserGear {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id])
+  gearId        String
+  gear          GearItem @relation(fields: [gearId], references: [id])
+  status        String
+  purchasePrice Int?
+  notes         String?
+  createdAt     DateTime @default(now())
+
+  @@unique([userId, gearId])
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  gearId    String
+  gear      GearItem @relation(fields: [gearId], references: [id])
+  rating    Int
+  ratings   Json
+  body      String
+  createdAt DateTime @default(now())
+
+  @@unique([userId, gearId])
+}
+
+model Deal {
+  id           String    @id @default(cuid())
+  gearId       String
+  gear         GearItem  @relation(fields: [gearId], references: [id])
+  retailerName String
+  retailerUrl  String
+  priceCents   Int
+  normalPrice  Int
+  discountPct  Int
+  region       String    @default("AU")
+  isActive     Boolean   @default(true)
+  foundAt      DateTime  @default(now())
+  expiresAt    DateTime?
+}
+
+model WatchlistItem {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  gearId    String
+  gear      GearItem @relation(fields: [gearId], references: [id])
+  maxPrice  Int?
+  notified  Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, gearId])
+}
+
+model PushSubscription {
+  id       String @id @default(cuid())
+  userId   String @unique
+  user     User   @relation(fields: [userId], references: [id])
+  endpoint String
+  p256dh   String
+  auth     String
+}
+
+model ExternalReviewSource {
+  id        String           @id @default(cuid())
+  name      String           @unique
+  type      String // "youtube" | "website"
+  channelId String?
+  feedUrl   String
+  avatarUrl String?
+  isActive  Boolean          @default(true)
+  reviews   ExternalReview[]
+}
+
+model ExternalReview {
+  id           String                @id @default(cuid())
+  sourceId     String
+  source       ExternalReviewSource  @relation(fields: [sourceId], references: [id])
+  gearId       String?
+  gear         GearItem?             @relation(fields: [gearId], references: [id])
+  title        String
+  url          String                @unique
+  thumbnailUrl String?
+  summary      String?
+  publishedAt  DateTime
+  matchScore   Float?
+  isVerified   Boolean               @default(false)
+  createdAt    DateTime              @default(now())
+
+  @@index([gearId])
+  @@index([sourceId])
+}

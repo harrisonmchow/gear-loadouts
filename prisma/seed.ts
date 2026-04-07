@@ -8,6 +8,8 @@ import { sleepingBags } from './data/sleeping-bags';
 import { sleepingPads } from './data/sleeping-pads';
 import { backpacks } from './data/backpacks';
 import { pillows } from './data/pillows';
+import { allUpgradeEdges } from './data/upgrade-edges';
+import { externalReviewSources } from './data/external-review-sources';
 
 const prisma = new PrismaClient();
 
@@ -217,12 +219,84 @@ async function seedGearItems() {
   console.log(`  Total items across all categories: ${deduped.length}`);
 }
 
+async function seedUpgradeEdges() {
+  console.log('Seeding upgrade edges...');
+
+  let created = 0;
+  let skipped = 0;
+
+  for (const edge of allUpgradeEdges) {
+    const fromItem = await prisma.gearItem.findFirst({ where: { name: edge.from } });
+    const toItem = await prisma.gearItem.findFirst({ where: { name: edge.to } });
+
+    if (!fromItem || !toItem) {
+      console.warn(`Edge skipped: "${edge.from}" → "${edge.to}" — item not found.`);
+      skipped++;
+      continue;
+    }
+
+    const existing = await prisma.upgradeEdge.findUnique({
+      where: { fromId_toId: { fromId: fromItem.id, toId: toItem.id } },
+    });
+
+    if (existing) {
+      skipped++;
+      continue;
+    }
+
+    await prisma.upgradeEdge.create({
+      data: {
+        fromId: fromItem.id,
+        toId: toItem.id,
+        edgeType: edge.type,
+        notes: edge.notes ?? null,
+      },
+    });
+    created++;
+  }
+
+  console.log(`✓ ${created} upgrade edges created, ${skipped} skipped.`);
+}
+
+async function seedExternalReviewSources() {
+  console.log('Seeding external review sources...');
+
+  let created = 0;
+  let skipped = 0;
+
+  for (const source of externalReviewSources) {
+    const existing = await prisma.externalReviewSource.findUnique({
+      where: { name: source.name },
+    });
+
+    if (existing) {
+      skipped++;
+      continue;
+    }
+
+    await prisma.externalReviewSource.create({
+      data: {
+        name: source.name,
+        type: source.type,
+        channelId: source.channelId,
+        feedUrl: source.feedUrl,
+        avatarUrl: source.avatarUrl,
+      },
+    });
+    created++;
+  }
+
+  console.log(`✓ ${created} external review sources created, ${skipped} skipped.`);
+}
+
 // ── Main ─────────────────────────────────────────────────────────────────────
 
 async function main() {
   try {
     await seedCategories();
     await seedGearItems();
+    await seedUpgradeEdges();
+    await seedExternalReviewSources();
     console.log('\n✅ Seed complete.');
   } catch (err) {
     console.error('Seed failed:', err);

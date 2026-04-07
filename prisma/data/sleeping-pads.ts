@@ -260,6 +260,21 @@ export const sleepingPads: SleepingPadSeedItem[] = [
     notes: '41.5×28.5cm sit pad. Reclaimed foam. 110g.',
   },
 
+  // ── Thermarest ──────────────────────────────────────────────────────────────
+  {
+    name: 'Thermarest Z-Lite SOL Regular',
+    brand: 'Thermarest',
+    weightGrams: 410,
+    priceCents: 8495,
+    currency: 'AUD',
+    href: 'https://www.paddypallin.com.au/thermarest-z-lite-sol-regular.html',
+    inStock: true,
+    type: 'foam',
+    rValue: 2.0,
+    thicknessCm: 2.0,
+    notes: 'Classic closed-cell foam. Accordion fold. Indestructible. ThermaCapture reflective coating.',
+  },
+
   // ── Alton Goods ────────────────────────────────────────────────────────────
   {
     name: 'Alton Ultralight Sleeping Mat R1.5',
