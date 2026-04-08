@@ -242,16 +242,21 @@ async function seedGearItems() {
     });
 
     if (existing) {
-      // Update whereToBuy and imageUrls on re-seed
-      if (item.whereToBuy?.length || item.imageUrls?.length) {
-        const updateData: Record<string, unknown> = {};
-        if (item.whereToBuy?.length) updateData.whereToBuy = item.whereToBuy;
-        if (item.imageUrls?.length) updateData.imageUrls = item.imageUrls;
-        await prisma.gearItem.update({
-          where: { id: existing.id },
-          data: updateData as any,
-        });
-      }
+      // Update all fields on re-seed
+      await prisma.gearItem.update({
+        where: { id: existing.id },
+        data: {
+          brand: item.brand,
+          weightGrams: item.weightGrams,
+          priceCents: item.priceCents,
+          currency: item.currency,
+          href: item.href,
+          isDiscontinued: !item.inStock,
+          specs: item.specs ?? {},
+          whereToBuy: (item.whereToBuy ?? []) as any,
+          imageUrls: (item.imageUrls ?? []) as any,
+        } as any,
+      });
       skipped++;
       continue;
     }
