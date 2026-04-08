@@ -10,10 +10,12 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Backpack, GitCompareArrows, ShoppingCart, Search, User, LogOut } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Backpack, GitCompareArrows, ShoppingCart, Search, User, LogOut, Globe } from "lucide-react";
 
 const navItems = [
   { href: "/loadout", label: "Loadout", icon: Backpack },
@@ -69,6 +71,17 @@ export function TopNav() {
                     <User className="mr-2 h-4 w-4" />
                     Profile
                   </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuLabel className="flex items-center gap-2 text-xs font-normal text-muted-foreground">
+                  <Globe className="h-3 w-3" />
+                  Region
+                </DropdownMenuLabel>
+                <DropdownMenuItem disabled className="justify-between">
+                  Australia (AUD)
+                  <Badge variant="secondary" className="ml-2 text-[10px]">
+                    Active
+                  </Badge>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => signOut({ callbackUrl: "/login" })}>

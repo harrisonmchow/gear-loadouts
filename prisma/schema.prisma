@@ -90,8 +90,10 @@ model GearItem {
   priceCents     Int?
   currency       String          @default("AUD")
   imageUrl       String?
+  imageUrls      Json?           @default("[]")
   href           String?
   specs          Json?
+  whereToBuy     Json?           @default("[]")
   isDiscontinued Boolean         @default(false)
   createdAt      DateTime        @default(now())
   reviews        Review[]
@@ -167,8 +169,10 @@ model Review {
 
 model Deal {
   id           String    @id @default(cuid())
-  gearId       String
-  gear         GearItem  @relation(fields: [gearId], references: [id])
+  gearId       String?
+  gear         GearItem? @relation(fields: [gearId], references: [id])
+  title        String?
+  description  String?
   retailerName String
   retailerUrl  String
   priceCents   Int

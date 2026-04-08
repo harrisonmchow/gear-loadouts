@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { formatWeight, formatPrice } from "@/lib/utils";
@@ -39,7 +40,12 @@ export function GearCollection({ items, isOwn }: GearCollectionProps) {
         >
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2">
-              <p className="font-medium leading-tight">{item.gear.name}</p>
+              <Link
+                href={`/items/${item.gearId}`}
+                className="font-medium leading-tight hover:underline"
+              >
+                {item.gear.name}
+              </Link>
               <Badge variant={statusColors[item.status] ?? "secondary"}>
                 {item.status}
               </Badge>

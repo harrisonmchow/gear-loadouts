@@ -86,11 +86,11 @@ export const sleepingBags: SleepingBagSeedItem[] = [
 
   // ── Enlightened Equipment (via ultralightgear.com.au) ────────────────────────
   {
-    name: 'Enlightened Equipment Revelation APEX Quilt 20°F (-7°C)',
+    name: 'Enlightened Equipment Revelation APEX Quilt 40°F (5°C)',
     brand: 'Enlightened Equipment',
-    weightGrams: null,
-    priceCents: null,
-    currency: 'USD',
+    weightGrams: 505,
+    priceCents: 37995,
+    currency: 'AUD',
     href: 'https://ultralightgear.com.au/products/enlightened-equipment-revelation-apex',
     inStock: true,
     type: 'quilt',

@@ -49,3 +49,8 @@ coverage/
 
 # Supabase
 supabase/.temp/
+
+# Claude
+.playwright-mcp
+.claude
+CLAUDE.md

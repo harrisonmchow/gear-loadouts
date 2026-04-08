@@ -1,7 +1,7 @@
 "use client";
 
 import { use } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -11,11 +11,29 @@ import { formatWeight, formatPrice } from "@/lib/utils";
 import { usePreferences } from "@/stores/preferences";
 import { useAddToWatchlist, useWatchlist } from "@/hooks/use-marketplace";
 import { useUserGear, useAddUserGear, useUpdateUserGear } from "@/hooks/use-profile";
-import { Eye, EyeOff, CheckCircle2, ShoppingBag } from "lucide-react";
+import { ReviewForm } from "@/components/shared/ReviewForm";
+import { useSession } from "next-auth/react";
+import {
+  Eye,
+  EyeOff,
+  CheckCircle2,
+  ShoppingBag,
+  ExternalLink,
+  ImageOff,
+} from "lucide-react";
 import type { GearItemWithCategory, ReviewWithUser } from "@/types";
+
+type WhereToBuyEntry = {
+  retailer: string;
+  url: string;
+  priceCents: number;
+  currency: string;
+};
 
 type GearItemDetail = GearItemWithCategory & {
   reviews: ReviewWithUser[];
+  imageUrls?: string[];
+  whereToBuy?: WhereToBuyEntry[];
 };
 
 function useGearItem(id: string) {
@@ -35,6 +53,8 @@ export default function ItemDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = use(params);
+  const { data: session } = useSession();
+  const queryClient = useQueryClient();
   const { data: item, isLoading } = useGearItem(id);
   const { weightUnit } = usePreferences();
   const { data: watchlist } = useWatchlist();
@@ -46,6 +66,11 @@ export default function ItemDetailPage({
   const isOnWatchlist = watchlist?.some((w) => w.gearId === id);
   const ownedEntry = userGear?.find((g) => g.gearId === id);
   const isOwned = ownedEntry?.status === "owned";
+
+  // Check if current user already reviewed this item
+  const hasReviewed = item?.reviews.some(
+    (r) => r.user.username === session?.user?.name
+  );
 
   if (isLoading) {
     return (
@@ -66,9 +91,31 @@ export default function ItemDetailPage({
     ([key, val]) => key !== "notes" && val != null && val !== ""
   );
   const notes = specs.notes as string | undefined;
+  const imageUrls = (item.imageUrls ?? []) as string[];
+  const whereToBuy = (item.whereToBuy ?? []) as WhereToBuyEntry[];
+  const ratingFields = (item.category.ratingFields ?? []) as string[];
 
   return (
     <div className="space-y-6">
+      {/* Photos */}
+      {imageUrls.length > 0 ? (
+        <div className="flex gap-4 overflow-x-auto pb-2">
+          {imageUrls.map((url, i) => (
+            <img
+              key={i}
+              src={url}
+              alt={`${item.name} photo ${i + 1}`}
+              className="h-48 w-auto shrink-0 rounded-lg object-cover"
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="flex h-32 items-center justify-center rounded-lg border border-dashed text-muted-foreground">
+          <ImageOff className="mr-2 h-5 w-5" />
+          <span className="text-sm">No photos yet</span>
+        </div>
+      )}
+
       {/* Header */}
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
@@ -188,7 +235,10 @@ export default function ItemDetailPage({
             <h2 className="mb-3 text-lg font-semibold">Specifications</h2>
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
               {specEntries.map(([key, value]) => (
-                <div key={key} className="flex justify-between rounded-md bg-muted/50 px-3 py-2">
+                <div
+                  key={key}
+                  className="flex justify-between rounded-md bg-muted/50 px-3 py-2"
+                >
                   <span className="text-sm capitalize text-muted-foreground">
                     {key.replace(/_/g, " ")}
                   </span>
@@ -210,24 +260,57 @@ export default function ItemDetailPage({
         </Card>
       )}
 
+      {/* Where to Buy */}
+      {whereToBuy.length > 0 && (
+        <Card>
+          <CardContent className="p-4">
+            <h2 className="mb-3 text-lg font-semibold">Where to Buy</h2>
+            <div className="space-y-2">
+              {whereToBuy.map((entry, i) => (
+                <div
+                  key={i}
+                  className="flex items-center justify-between rounded-md bg-muted/50 px-3 py-2"
+                >
+                  <div>
+                    <p className="text-sm font-medium">{entry.retailer}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {formatPrice(entry.priceCents, entry.currency)}
+                    </p>
+                  </div>
+                  <Button size="sm" variant="outline" asChild>
+                    <a
+                      href={entry.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <ExternalLink className="mr-1.5 h-3 w-3" />
+                      Visit
+                    </a>
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Reviews */}
       <div>
         <h2 className="mb-3 text-lg font-semibold">
           Reviews ({item.reviews.length})
         </h2>
-        {item.reviews.length === 0 ? (
-          <p className="py-8 text-center text-sm text-muted-foreground">
+        {item.reviews.length === 0 && (
+          <p className="py-4 text-center text-sm text-muted-foreground">
             No reviews yet. Own this item to leave a review.
           </p>
-        ) : (
+        )}
+        {item.reviews.length > 0 && (
           <div className="space-y-3">
             {item.reviews.map((review) => (
               <Card key={review.id}>
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between">
-                    <p className="font-medium">
-                      {review.user.username}
-                    </p>
+                    <p className="font-medium">{review.user.username}</p>
                     <span className="text-sm text-muted-foreground">
                       {review.rating}/5
                     </span>
@@ -238,6 +321,24 @@ export default function ItemDetailPage({
               </Card>
             ))}
           </div>
+        )}
+
+        {/* Review form — only if owned and not yet reviewed */}
+        {isOwned && !hasReviewed && (
+          <Card className="mt-4">
+            <CardContent className="p-4">
+              <h3 className="mb-3 font-semibold">Write a Review</h3>
+              <ReviewForm
+                gearId={id}
+                ratingFields={ratingFields}
+                onSuccess={() => {
+                  queryClient.invalidateQueries({
+                    queryKey: ["gear-item", id],
+                  });
+                }}
+              />
+            </CardContent>
+          </Card>
         )}
       </div>
     </div>

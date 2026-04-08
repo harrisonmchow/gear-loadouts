@@ -8,6 +8,8 @@ import { sleepingBags } from './data/sleeping-bags';
 import { sleepingPads } from './data/sleeping-pads';
 import { backpacks } from './data/backpacks';
 import { pillows } from './data/pillows';
+import { cookSystems } from './data/cook-systems';
+import { waterFiltration } from './data/water-filtration';
 import { allUpgradeEdges } from './data/upgrade-edges';
 import { externalReviewSources } from './data/external-review-sources';
 
@@ -45,6 +47,18 @@ const categories = [
     displayName: 'Pillow',
     icon: '🛏️',
     ratingFields: ['weight', 'packability', 'comfort', 'insulation'],
+  },
+  {
+    name: 'cook_system',
+    displayName: 'Cook System',
+    icon: '🍳',
+    ratingFields: ['weight', 'packability', 'boil_time', 'fuel_efficiency', 'durability'],
+  },
+  {
+    name: 'water_filtration',
+    displayName: 'Water Filtration',
+    icon: '💧',
+    ratingFields: ['weight', 'flow_rate', 'packability', 'durability', 'ease_of_use'],
   },
 ];
 
@@ -165,6 +179,37 @@ async function seedGearItems() {
       specs: {
         type: p.type,
         notes: p.notes,
+      },
+    })),
+    ...cookSystems.map((c) => ({
+      name: c.name,
+      brand: c.brand,
+      categoryName: 'cook_system',
+      weightGrams: c.weightGrams,
+      priceCents: c.priceCents,
+      currency: c.currency,
+      href: c.href,
+      inStock: c.inStock,
+      specs: {
+        type: c.type,
+        fuelType: c.fuelType,
+        volumeMl: c.volumeMl,
+        notes: c.notes,
+      },
+    })),
+    ...waterFiltration.map((w) => ({
+      name: w.name,
+      brand: w.brand,
+      categoryName: 'water_filtration',
+      weightGrams: w.weightGrams,
+      priceCents: w.priceCents,
+      currency: w.currency,
+      href: w.href,
+      inStock: w.inStock,
+      specs: {
+        type: w.type,
+        flowRate: w.flowRate,
+        notes: w.notes,
       },
     })),
   ];
@@ -289,6 +334,87 @@ async function seedExternalReviewSources() {
   console.log(`✓ ${created} external review sources created, ${skipped} skipped.`);
 }
 
+async function seedWhereToBuy() {
+  console.log('Seeding where-to-buy data...');
+
+  const mockWhereToBuy: Record<string, { retailer: string; url: string; priceCents: number; currency: string }[]> = {
+    'Sawyer Squeeze Water Filter': [
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/sawyer-squeeze-filter.html', priceCents: 5995, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/squeeze-water-filter', priceCents: 6295, currency: 'AUD' },
+    ],
+    'MSR PocketRocket 2': [
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/msr-pocketrocket-2-stove.html', priceCents: 8995, currency: 'AUD' },
+      { retailer: 'Wildfire Sports', url: 'https://www.wildfiresports.com.au/msr-pocketrocket-2', priceCents: 8995, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/pocketrocket-2', priceCents: 9295, currency: 'AUD' },
+    ],
+    'TOAKS Titanium 750ml Pot': [
+      { retailer: 'Ultralight Hiker', url: 'https://www.ultralighthiker.com.au/toaks-titanium-750ml-pot.html', priceCents: 5495, currency: 'AUD' },
+    ],
+    'Katadyn BeFree 1.0L': [
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/katadyn-befree-1l.html', priceCents: 7495, currency: 'AUD' },
+      { retailer: 'Bogong', url: 'https://www.bogong.com.au/katadyn-befree-1l.html', priceCents: 7495, currency: 'AUD' },
+    ],
+    'Jetboil Flash Cooking System': [
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/jetboil-flash-cooking-system.html', priceCents: 23995, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/flash-cooking-system', priceCents: 23995, currency: 'AUD' },
+    ],
+  };
+
+  let updated = 0;
+  for (const [itemName, entries] of Object.entries(mockWhereToBuy)) {
+    const item = await prisma.gearItem.findFirst({ where: { name: itemName } });
+    if (!item) continue;
+    await prisma.gearItem.update({
+      where: { id: item.id },
+      data: { whereToBuy: entries },
+    });
+    updated++;
+  }
+  console.log(`✓ ${updated} items updated with where-to-buy data.`);
+}
+
+async function seedSiteDeals() {
+  console.log('Seeding site-wide deals...');
+
+  const siteDeals = [
+    {
+      title: 'Paddy Pallin Hiking Sale',
+      description: 'Up to 30% off selected hiking gear',
+      retailerName: 'Paddy Pallin',
+      retailerUrl: 'https://www.paddypallin.com.au/sale',
+      priceCents: 0,
+      normalPrice: 0,
+      discountPct: 30,
+      region: 'AU',
+      expiresAt: new Date('2026-04-09'),
+    },
+    {
+      title: 'Snowys End of Season Clearance',
+      description: '20-40% off winter sleeping bags and insulated jackets',
+      retailerName: 'Snowys',
+      retailerUrl: 'https://www.snowys.com.au/clearance',
+      priceCents: 0,
+      normalPrice: 0,
+      discountPct: 40,
+      region: 'AU',
+      expiresAt: new Date('2026-04-15'),
+    },
+  ];
+
+  let created = 0;
+  for (const deal of siteDeals) {
+    // Check if a site deal with same title already exists
+    const existing = await prisma.deal.findFirst({
+      where: { title: deal.title, gearId: null },
+    });
+    if (existing) continue;
+
+    await prisma.deal.create({ data: deal });
+    created++;
+  }
+  console.log(`✓ ${created} site-wide deals created.`);
+}
+
 // ── Main ─────────────────────────────────────────────────────────────────────
 
 async function main() {
@@ -297,6 +423,8 @@ async function main() {
     await seedGearItems();
     await seedUpgradeEdges();
     await seedExternalReviewSources();
+    await seedWhereToBuy();
+    await seedSiteDeals();
     console.log('\n✅ Seed complete.');
   } catch (err) {
     console.error('Seed failed:', err);

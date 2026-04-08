@@ -21,6 +21,8 @@ const CATEGORIES = [
   { value: "sleeping_pad", label: "Sleeping Pads" },
   { value: "backpack", label: "Backpacks" },
   { value: "pillow", label: "Pillows" },
+  { value: "cook_system", label: "Cook System" },
+  { value: "water_filtration", label: "Water Filtration" },
 ];
 
 export default function MarketplacePage() {

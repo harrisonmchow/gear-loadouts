@@ -60,7 +60,7 @@ export type ReviewWithGear = Review & {
 };
 
 export type DealWithGear = Deal & {
-  gear: GearItemWithCategory;
+  gear: GearItemWithCategory | null;
 };
 
 export type WatchlistItemWithGear = WatchlistItem & {

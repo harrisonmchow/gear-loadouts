@@ -22,10 +22,10 @@ export interface UpgradeEdge {
 export const tentEdges: UpgradeEdge[] = [
   // Budget → Mid UL → UL thru-hiker progression
   {
-    from: 'Naturehike Cloud-Up 2',
+    from: 'Naturehike Mongar 2',
     to: '3F UL Gear Lanshan 2 Pro',
-    type: 'quality',
-    notes: 'Silpoly vs silnylon — doesn\'t sag when wet, slightly lighter',
+    type: 'alternative',
+    notes: 'Silpoly vs silnylon — doesn\'t sag when wet, slightly lighter. Good introduction to trekking pole tents',
   },
   {
     from: '3F UL Gear Lanshan 2 Pro',
@@ -55,6 +55,12 @@ export const tentEdges: UpgradeEdge[] = [
   },
 
   // Alternative style
+  {
+    from: 'NEMO Hornet OSMO 2P',
+    to: 'Durston X-Mid 2',
+    type: 'alternative',
+    notes: 'Semi free standing to trekking pole',
+  },
   {
     from: 'Durston X-Mid 2',
     to: 'Hyperlite Mountain Gear UltaMid 2',

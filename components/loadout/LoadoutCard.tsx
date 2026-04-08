@@ -4,11 +4,15 @@ import { GearSlot } from "./GearSlot";
 import type { LoadoutWithItems } from "@/types";
 
 const SLOT_TYPES = [
-  { name: "tent", label: "Shelter", icon: "tent" },
-  { name: "sleeping_bag", label: "Sleeping Bag / Quilt", icon: "sleeping_bag" },
-  { name: "sleeping_pad", label: "Sleeping Pad", icon: "sleeping_pad" },
-  { name: "backpack", label: "Backpack", icon: "backpack" },
-  { name: "pillow", label: "Pillow", icon: "pillow" },
+  { name: "tent", label: "Shelter" },
+  { name: "sleeping_bag", label: "Sleeping Bag / Quilt" },
+  { name: "sleeping_pad", label: "Sleeping Pad" },
+  { name: "backpack", label: "Backpack" },
+  { name: "pillow", label: "Pillow" },
+  { name: "cook_stove", label: "Stove" },
+  { name: "cook_pot", label: "Pot / Pan" },
+  { name: "water_filter", label: "Water Filter" },
+  { name: "water_container", label: "Water Container" },
 ];
 
 interface LoadoutCardProps {

@@ -24,6 +24,8 @@ const CATEGORIES = [
   { value: "sleeping_pad", label: "Sleeping Pad" },
   { value: "backpack", label: "Backpack" },
   { value: "pillow", label: "Pillow" },
+  { value: "cook_system", label: "Cook System" },
+  { value: "water_filtration", label: "Water Filtration" },
 ];
 
 export default function ItemsPage() {
