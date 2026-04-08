@@ -5,6 +5,8 @@
 // Currency: AUD unless noted. priceCents = null if unavailable.
 // weightGrams = trail/minimum weight. inStock = false if listed as sold out.
 
+import type { WhereToBuyEntry } from './water-filtration';
+
 export interface SleepingBagSeedItem {
   name: string;
   brand: string;
@@ -19,6 +21,8 @@ export interface SleepingBagSeedItem {
   tempRatingComfortC: number | null;
   tempRatingLowerC: number | null;
   notes?: string;
+  whereToBuy: WhereToBuyEntry[];
+  imageUrls: string[];
 }
 
 export const sleepingBags: SleepingBagSeedItem[] = [
@@ -37,6 +41,11 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: null,
     tempRatingLowerC: -2,
     notes: '10D silky shell. Differential cut. Pad straps. Draft collar. Regular size.',
+    whereToBuy: [
+      { retailer: 'Ultralight Gear', url: 'https://ultralightgear.com.au/products/waratah-quilt', priceCents: 35010, currency: 'AUD' },
+      { retailer: 'Backpacking Light', url: 'https://backpackinglight.com.au/neve-gear-waratah-quilt', priceCents: 35710, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Neve Gear Waratah Quilt -8°C',
@@ -52,6 +61,11 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: null,
     tempRatingLowerC: -8,
     notes: '10D shell. Differential cut. Draft collars. Regular size.',
+    whereToBuy: [
+      { retailer: 'Ultralight Gear', url: 'https://ultralightgear.com.au/products/waratah-quilt', priceCents: 38900, currency: 'AUD' },
+      { retailer: 'Backpacking Light', url: 'https://backpackinglight.com.au/neve-gear-waratah-quilt-8', priceCents: 39678, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Neve Gear Waratah Pro Quilt -2°C',
@@ -67,6 +81,11 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: null,
     tempRatingLowerC: -2,
     notes: 'Quarter-zip footbox. Draft collar. Made same factory as STS, REI, Marmot.',
+    whereToBuy: [
+      { retailer: 'Ultralight Gear', url: 'https://ultralightgear.com.au/collections/sleeping-bags-quilts/products/waratah-pro', priceCents: 46995, currency: 'AUD' },
+      { retailer: 'Backpacking Light', url: 'https://backpackinglight.com.au/neve-gear-waratah-pro-quilt', priceCents: 47935, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Neve Gear Waratah Pro Quilt -8°C',
@@ -82,6 +101,11 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: null,
     tempRatingLowerC: -8,
     notes: 'Quarter-zip footbox, adjustable draft collar. 10D shell. -8°C Regular.',
+    whereToBuy: [
+      { retailer: 'Ultralight Gear', url: 'https://ultralightgear.com.au/collections/sleeping-bags-quilts/products/waratah-pro', priceCents: 53900, currency: 'AUD' },
+      { retailer: 'Backpacking Light', url: 'https://backpackinglight.com.au/neve-gear-waratah-pro-quilt-8', priceCents: 54978, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
 
   // ── Enlightened Equipment (via ultralightgear.com.au) ────────────────────────
@@ -99,6 +123,11 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: null,
     tempRatingLowerC: -7,
     notes: 'CLIMASHIELD APEX synthetic. PFC-free. Best-selling thru-hiker quilt. 10D shell.',
+    whereToBuy: [
+      { retailer: 'Ultralight Gear', url: 'https://ultralightgear.com.au/products/enlightened-equipment-revelation-apex', priceCents: 37995, currency: 'AUD' },
+      { retailer: 'Backpacking Light', url: 'https://backpackinglight.com.au/enlightened-equipment-revelation-apex', priceCents: 38755, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Enlightened Equipment Enigma Quilt 20°F (-7°C)',
@@ -114,6 +143,10 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: null,
     tempRatingLowerC: -7,
     notes: '850FP down. Flagship ultralight quilt. 10D shell.',
+    whereToBuy: [
+      { retailer: 'Ultralight Gear', url: 'https://ultralightgear.com.au/collections/quilts', priceCents: 0, currency: 'USD' },
+    ],
+    imageUrls: [],
   },
 
   // ── Mont (Australian brand via ultralightgear.com.au) ───────────────────────
@@ -131,6 +164,10 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: null,
     tempRatingLowerC: null,
     notes: '3-4 season ultralight. Only 850g. Minimum weight design.',
+    whereToBuy: [
+      { retailer: 'Ultralight Gear', url: 'https://ultralightgear.com.au/collections/sleeping-bags-quilts', priceCents: 0, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Mont Helium 600 Down Sleeping Bag',
@@ -146,6 +183,10 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: null,
     tempRatingLowerC: -10,
     notes: 'Down to -10°C. 1kg. Ideal for ski touring.',
+    whereToBuy: [
+      { retailer: 'Ultralight Gear', url: 'https://ultralightgear.com.au/collections/sleeping-bags-quilts', priceCents: 0, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Mont Brindabella XT 850 Down Sleeping Bag',
@@ -161,6 +202,12 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: null,
     tempRatingLowerC: -16,
     notes: '-10 to -16°C. Standard, Women\'s & XL. High-performance alpine.',
+    whereToBuy: [
+      { retailer: 'Ultralight Gear', url: 'https://ultralightgear.com.au/collections/sleeping-bags-quilts/products/mont-brindabella-850', priceCents: 104995, currency: 'AUD' },
+      { retailer: 'Backpacking Light', url: 'https://backpackinglight.com.au/mont-brindabella-xt-850', priceCents: 107095, currency: 'AUD' },
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/mont-brindabella-xt-850-sleeping-bag.html', priceCents: 107995, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Mont Spindrift XT 700 Down Sleeping Bag',
@@ -176,6 +223,12 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: null,
     tempRatingLowerC: -13,
     notes: '-7 to -13°C. Alpine / expedition. Standard & XL.',
+    whereToBuy: [
+      { retailer: 'Ultralight Gear', url: 'https://ultralightgear.com.au/collections/sleeping-bags-quilts/products/mont-spindrift-xt-700', priceCents: 111995, currency: 'AUD' },
+      { retailer: 'Backpacking Light', url: 'https://backpackinglight.com.au/mont-spindrift-xt-700', priceCents: 114235, currency: 'AUD' },
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/mont-spindrift-xt-700-sleeping-bag.html', priceCents: 114995, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Mont Spindrift XT 850 Down Sleeping Bag',
@@ -191,6 +244,12 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: null,
     tempRatingLowerC: -16,
     notes: 'Extreme alpine. Standard, Women\'s & XL.',
+    whereToBuy: [
+      { retailer: 'Ultralight Gear', url: 'https://ultralightgear.com.au/collections/sleeping-bags-quilts/products/mont-spindrift-xt-850', priceCents: 115995, currency: 'AUD' },
+      { retailer: 'Backpacking Light', url: 'https://backpackinglight.com.au/mont-spindrift-xt-850', priceCents: 118315, currency: 'AUD' },
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/mont-spindrift-xt-850-sleeping-bag.html', priceCents: 118995, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
 
   // ── NEMO Equipment ──────────────────────────────────────────────────────────
@@ -208,6 +267,10 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: null,
     tempRatingLowerC: -2,
     notes: 'Endless Promise® recyclable. 800FP hydrophobic down. Genderless.',
+    whereToBuy: [
+      { retailer: 'Ultralight Gear', url: 'https://ultralightgear.com.au/collections/sleeping-bags-quilts', priceCents: 0, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'NEMO Coda 10/20 Endless Promise Down Sleeping Bag -12°C',
@@ -223,6 +286,10 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: null,
     tempRatingLowerC: -12,
     notes: 'Endless Promise® fully recyclable. 800FP hydrophobic down.',
+    whereToBuy: [
+      { retailer: 'Ultralight Gear', url: 'https://ultralightgear.com.au/collections/sleeping-bags-quilts', priceCents: 0, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: "NEMO Riff 15 Endless Promise Down Sleeping Bag -8°C Women's",
@@ -238,6 +305,12 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: -8,
     tempRatingLowerC: -15,
     notes: "Spoon® wider-cut for side sleepers. Thermo Gill™ vents. Pairs with men's Riff.",
+    whereToBuy: [
+      { retailer: 'Ultralight Gear', url: 'https://ultralightgear.com.au/collections/sleeping-bags-quilts/products/nemo-riff-15-endless-promise-down-sleeping-bag-8%C2%BAc-womens', priceCents: 64995, currency: 'AUD' },
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/nemo-riff-15-womens-sleeping-bag.html', priceCents: 66295, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/nemo-riff-15-womens-sleeping-bag', priceCents: 67245, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'NEMO Tempo Down Sleeping Bag -7°C',
@@ -253,6 +326,10 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: null,
     tempRatingLowerC: -7,
     notes: 'Streamlined ultralight mummy. Hydrophobic 800FP down.',
+    whereToBuy: [
+      { retailer: 'NEMO', url: 'https://www.nemoequipment.com/products/tempo', priceCents: 0, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'NEMO Pulse Quilt',
@@ -268,6 +345,10 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: null,
     tempRatingLowerC: null,
     notes: '1000-fill gold-infused down. Built for thru-hikers and minimalists.',
+    whereToBuy: [
+      { retailer: 'NEMO', url: 'https://www.nemoequipment.com/products/pulse-quilt', priceCents: 0, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
 
   // ── Sea to Summit ────────────────────────────────────────────────────────────
@@ -285,6 +366,12 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: 12,
     tempRatingLowerC: 6,
     notes: 'Ultra compact. Warm weather / fastpacking. 850FP.',
+    whereToBuy: [
+      { retailer: 'Sea to Summit', url: 'https://seatosummit.com.au/collections/sleeping-bags', priceCents: 37999, currency: 'AUD' },
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/sea-to-summit-spark-spi-sleeping-bag.html', priceCents: 38759, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/spark-spi-sleeping-bag', priceCents: 39139, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Sea to Summit Spark SpII Down Sleeping Bag 1°C',
@@ -300,6 +387,12 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: 7,
     tempRatingLowerC: 1,
     notes: '850FP down. 3-season ultralight.',
+    whereToBuy: [
+      { retailer: 'Sea to Summit', url: 'https://seatosummit.com.au/collections/sleeping-bags', priceCents: 44999, currency: 'AUD' },
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/sea-to-summit-spark-spii-sleeping-bag.html', priceCents: 45899, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/spark-spii-sleeping-bag', priceCents: 46349, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Sea to Summit Spark SpIII Down Sleeping Bag -4°C',
@@ -315,6 +408,12 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: 2,
     tempRatingLowerC: -4,
     notes: '850FP down. Popular AU thru-hiking bag.',
+    whereToBuy: [
+      { retailer: 'Sea to Summit', url: 'https://seatosummit.com.au/collections/sleeping-bags', priceCents: 49999, currency: 'AUD' },
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/sea-to-summit-spark-spiii-sleeping-bag.html', priceCents: 50999, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/spark-spiii-sleeping-bag', priceCents: 51499, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Sea to Summit Altitude AtI Down Sleeping Bag',
@@ -330,6 +429,12 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: 9,
     tempRatingLowerC: 4,
     notes: '750FP down. Summer / warm weather.',
+    whereToBuy: [
+      { retailer: 'Sea to Summit', url: 'https://seatosummit.com.au/collections/sleeping-bags', priceCents: 39999, currency: 'AUD' },
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/sea-to-summit-altitude-ati-sleeping-bag.html', priceCents: 40799, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/altitude-ati-sleeping-bag', priceCents: 41199, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Sea to Summit Ember EbI Down Quilt',
@@ -345,6 +450,12 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: null,
     tempRatingLowerC: null,
     notes: 'Lightweight quilt for weight-conscious backpackers.',
+    whereToBuy: [
+      { retailer: 'Sea to Summit', url: 'https://seatosummit.com.au/collections/quilts', priceCents: 39999, currency: 'AUD' },
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/sea-to-summit-ember-ebi-quilt.html', priceCents: 40799, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/ember-ebi-down-quilt', priceCents: 41199, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Sea to Summit Reactor Thermolite Sleeping Bag Liner',
@@ -360,6 +471,12 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: null,
     tempRatingLowerC: null,
     notes: 'Liner adds up to 7°C warmth. Can be used standalone in warm conditions.',
+    whereToBuy: [
+      { retailer: 'Sea to Summit', url: 'https://seatosummit.com.au/collections/sleeping-bag-liners', priceCents: 12999, currency: 'AUD' },
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/sea-to-summit-reactor-thermolite-liner.html', priceCents: 13259, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/reactor-thermolite-sleeping-bag-liner', priceCents: 13389, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
 
   // ── Alton Goods (Australian brand) ───────────────────────────────────────────
@@ -377,6 +494,10 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: null,
     tempRatingLowerC: 10,
     notes: '850FP DownTek PFC-free hydrophobic down. Hoodless. Adjustable neck closure. Lifetime warranty.',
+    whereToBuy: [
+      { retailer: 'Alton Goods', url: 'https://altongoods.com/products/ultralight-summer-sleeping-bag', priceCents: 19500, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Alton Ultralight Sleeping Bag 0°C',
@@ -392,6 +513,10 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: 2,
     tempRatingLowerC: 0,
     notes: 'ISO 23537-1:2022 certified. 850FP DownTek. Box-wall baffles. 15-20% overstuffed. Lifetime warranty.',
+    whereToBuy: [
+      { retailer: 'Alton Goods', url: 'https://altongoods.com/products/ultralight-sleeping-bag', priceCents: 29500, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Alton Ultralight Sleeping Bag -5°C',
@@ -407,6 +532,10 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: -2,
     tempRatingLowerC: -5,
     notes: 'ISO certified. 850FP DownTek hydrophobic. Lifetime warranty.',
+    whereToBuy: [
+      { retailer: 'Alton Goods', url: 'https://altongoods.com/products/ultralight-sleeping-bag', priceCents: 34500, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Alton Ultralight Sleeping Bag -10°C',
@@ -422,6 +551,10 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: -4,
     tempRatingLowerC: -10,
     notes: 'ISO certified. 850FP DownTek. Cold-weather option. Lifetime warranty.',
+    whereToBuy: [
+      { retailer: 'Alton Goods', url: 'https://altongoods.com/products/ultralight-sleeping-bag', priceCents: 39500, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Alton Ultralight Top Quilt',
@@ -437,6 +570,10 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: null,
     tempRatingLowerC: null,
     notes: '850FP DownTek PFC-free. Pad attachment system. Lifetime warranty.',
+    whereToBuy: [
+      { retailer: 'Alton Goods', url: 'https://altongoods.com/collections/sleeping', priceCents: 24500, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
 
   // ── Zorali ────────────────────────────────────────────────────────────────────
@@ -454,6 +591,10 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: 4,
     tempRatingLowerC: null,
     notes: 'THERMOLITE® EcoMade recycled insulation. 9.6L compressed volume. 3-season. Lifetime warranty.',
+    whereToBuy: [
+      { retailer: 'Zorali', url: 'https://www.zorali.com/products/apex-eco-sleeping-bag-4-c-brown', priceCents: 26500, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Zorali Apex Eco Sleeping Bag 4°C Tall',
@@ -469,6 +610,10 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: 4,
     tempRatingLowerC: null,
     notes: 'Tall version fits up to 198cm. Same THERMOLITE® fill.',
+    whereToBuy: [
+      { retailer: 'Zorali', url: 'https://www.zorali.com/products/apex-eco-sleeping-bag-4-c-brown', priceCents: 28500, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Zorali Drift Down Sleeping Bag',
@@ -484,6 +629,10 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: null,
     tempRatingLowerC: null,
     notes: 'Down sleeping bag. Lifetime warranty.',
+    whereToBuy: [
+      { retailer: 'Zorali', url: 'https://www.zorali.com/collections/sleeping-bags-1', priceCents: 36500, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
 
   // ── Macpac ───────────────────────────────────────────────────────────────────
@@ -501,6 +650,10 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: null,
     tempRatingLowerC: null,
     notes: 'Relaxed mummy. Practical 3-season down bag.',
+    whereToBuy: [
+      { retailer: 'Macpac', url: 'https://www.macpac.com.au/outdoor-equipment/sleeping-gear/sleeping-bags', priceCents: 44900, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Macpac NZAT Down Quilt 350',
@@ -516,6 +669,10 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: null,
     tempRatingLowerC: null,
     notes: 'Designed for committed alpinists. Ultralight, water-resistant. 1-3 person.',
+    whereToBuy: [
+      { retailer: 'Macpac', url: 'https://www.macpac.com.au/outdoor-equipment/sleeping-gear/sleeping-bags', priceCents: 59900, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Macpac Vanguard Down Sleeping Bag',
@@ -531,6 +688,10 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: null,
     tempRatingLowerC: null,
     notes: 'Zipperless down sleeping bag. Highly compressible.',
+    whereToBuy: [
+      { retailer: 'Macpac', url: 'https://www.macpac.com.au/outdoor-equipment/sleeping-gear/sleeping-bags', priceCents: 69900, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
 
   // ── Kathmandu ────────────────────────────────────────────────────────────────
@@ -548,6 +709,10 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: null,
     tempRatingLowerC: null,
     notes: '700FP duck down. 3-season. Popular entry-level down bag.',
+    whereToBuy: [
+      { retailer: 'Kathmandu', url: 'https://www.kathmandu.com.au/collections/sleeping-bags', priceCents: 34999, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Kathmandu Firefly 500 Down Sleeping Bag',
@@ -563,6 +728,10 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: null,
     tempRatingLowerC: null,
     notes: 'Budget duck down. Entry-level.',
+    whereToBuy: [
+      { retailer: 'Kathmandu', url: 'https://www.kathmandu.com.au/collections/sleeping-bags', priceCents: 24999, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
 
   // ── Decathlon (Forclaz / Quechua) ────────────────────────────────────────────
@@ -580,6 +749,10 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: 10,
     tempRatingLowerC: null,
     notes: 'Budget 700FP down. Good weight-to-price for beginners.',
+    whereToBuy: [
+      { retailer: 'Decathlon', url: 'https://www.decathlon.com.au/p/trek-900-down-sleeping-bag-10-c/_/R-p-337291', priceCents: 22999, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Forclaz Trek 900 0°C Down Sleeping Bag',
@@ -595,6 +768,10 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: 0,
     tempRatingLowerC: null,
     notes: 'Budget 700FP down for 3-season use.',
+    whereToBuy: [
+      { retailer: 'Decathlon', url: 'https://www.decathlon.com.au/p/trek-900-down-sleeping-bag-0-c/_/R-p-337292', priceCents: 29999, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Quechua MH100 10°C Synthetic Sleeping Bag',
@@ -610,5 +787,9 @@ export const sleepingBags: SleepingBagSeedItem[] = [
     tempRatingComfortC: 10,
     tempRatingLowerC: null,
     notes: 'Entry-level beginner sleeping bag. Extremely affordable.',
+    whereToBuy: [
+      { retailer: 'Decathlon', url: 'https://www.decathlon.com.au/p/mh100-10-synthetic-sleeping-bag/_/R-p-180279', priceCents: 5999, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
 ];

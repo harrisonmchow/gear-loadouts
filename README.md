@@ -128,6 +128,19 @@ A Next.js platform for backpackers to showcase gear loadouts, track stats, disco
    npx prisma db seed
    ```
 
+   If making changes to seeded items, run the following:
+   
+   ```bash
+   npx prisma db push    # syncs schema to DB without migrations
+   npx prisma db seed    # then reseed
+   ```
+
+   To reset the entire DB (Dev only)
+   ```bash
+   npx prisma migrate reset
+   npx prisma db seed    # then reseed
+   ```
+
 5. Start the development server:
    ```bash
    npm run dev

@@ -3,6 +3,8 @@
 // zorali.com, altongoods.com, decathlon.com.au, naturehike.com, nemoequipment.com
 // Currency: AUD unless noted. weightGrams = packed weight.
 
+import type { WhereToBuyEntry } from './water-filtration';
+
 export interface SleepingPadSeedItem {
   name: string;
   brand: string;
@@ -14,6 +16,8 @@ export interface SleepingPadSeedItem {
   type: 'inflatable' | 'self-inflating' | 'foam';
   rValue: number | null;
   thicknessCm: number | null;
+  whereToBuy: WhereToBuyEntry[];
+  imageUrls: string[];
   notes?: string;
 }
 
@@ -30,6 +34,12 @@ export const sleepingPads: SleepingPadSeedItem[] = [
     type: 'inflatable',
     rValue: 3.5,
     thicknessCm: 7.6,
+    whereToBuy: [
+      { retailer: 'Backpacking Light', url: 'https://www.backpackinglight.com.au/products/nemo-tensor-insulated-ultralight-sleeping-pad', priceCents: 27995, currency: 'AUD' },
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/nemo-tensor-insulated-regular-mummy.html', priceCents: 28835, currency: 'AUD' },
+      { retailer: 'Ultralight Gear', url: 'https://www.ultralightgear.com.au/products/nemo-tensor-insulated', priceCents: 29115, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Spaceframe baffles. Thermal Mirror insulation. Laylow valve. Vortex pump sack. Quiet.',
   },
   {
@@ -43,6 +53,12 @@ export const sleepingPads: SleepingPadSeedItem[] = [
     type: 'inflatable',
     rValue: 3.5,
     thicknessCm: 7.6,
+    whereToBuy: [
+      { retailer: 'Backpacking Light', url: 'https://www.backpackinglight.com.au/products/nemo-tensor-insulated-ultralight-sleeping-pad', priceCents: 28995, currency: 'AUD' },
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/nemo-tensor-insulated-regular-wide.html', priceCents: 29865, currency: 'AUD' },
+      { retailer: 'Ultralight Gear', url: 'https://www.ultralightgear.com.au/products/nemo-tensor-insulated-wide', priceCents: 30155, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Wide version. Spaceframe baffles. Thermal Mirror film.',
   },
   {
@@ -56,6 +72,12 @@ export const sleepingPads: SleepingPadSeedItem[] = [
     type: 'inflatable',
     rValue: 5.4,
     thicknessCm: 8.9,
+    whereToBuy: [
+      { retailer: 'Backpacking Light', url: 'https://www.backpackinglight.com.au/products/nemo-tensor-all-season-insulated-ultralight-sleeping-mat', priceCents: 35995, currency: 'AUD' },
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/nemo-tensor-all-season-insulated-regular-mummy.html', priceCents: 37075, currency: 'AUD' },
+      { retailer: 'Ultralight Gear', url: 'https://www.ultralightgear.com.au/products/nemo-tensor-all-season-insulated', priceCents: 37435, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: '2x Thermal Mirror film layers. R5.4. 20D top / 40D bottom nylon. Vortex pump sack.',
   },
   {
@@ -69,6 +91,12 @@ export const sleepingPads: SleepingPadSeedItem[] = [
     type: 'inflatable',
     rValue: 5.4,
     thicknessCm: 8.9,
+    whereToBuy: [
+      { retailer: 'Backpacking Light', url: 'https://www.backpackinglight.com.au/products/nemo-tensor-all-season-insulated-ultralight-sleeping-mat', priceCents: 35995, currency: 'AUD' },
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/nemo-tensor-all-season-insulated-regular-wide.html', priceCents: 37075, currency: 'AUD' },
+      { retailer: 'Ultralight Gear', url: 'https://www.ultralightgear.com.au/products/nemo-tensor-all-season-insulated-wide', priceCents: 37435, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Wide version. R5.4. Ideal for side sleepers.',
   },
   {
@@ -82,6 +110,12 @@ export const sleepingPads: SleepingPadSeedItem[] = [
     type: 'inflatable',
     rValue: 8.5,
     thicknessCm: 9.0,
+    whereToBuy: [
+      { retailer: 'Backpacking Light', url: 'https://www.backpackinglight.com.au/products/nemo-tensor-extreme-conditions-insulated-ultralight-sleeping-pad', priceCents: 41995, currency: 'AUD' },
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/nemo-tensor-extreme-conditions-regular-mummy.html', priceCents: 43255, currency: 'AUD' },
+      { retailer: 'Ultralight Gear', url: 'https://www.ultralightgear.com.au/products/nemo-tensor-extreme-conditions', priceCents: 43675, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Apex baffle design. 4x Thermal Mirror film. R8.5. Warmest ultralight pad available.',
   },
   {
@@ -95,6 +129,12 @@ export const sleepingPads: SleepingPadSeedItem[] = [
     type: 'inflatable',
     rValue: 8.5,
     thicknessCm: 9.0,
+    whereToBuy: [
+      { retailer: 'Backpacking Light', url: 'https://www.backpackinglight.com.au/products/nemo-tensor-extreme-conditions-insulated-ultralight-sleeping-pad', priceCents: 43995, currency: 'AUD' },
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/nemo-tensor-extreme-conditions-long-wide.html', priceCents: 45315, currency: 'AUD' },
+      { retailer: 'Ultralight Gear', url: 'https://www.ultralightgear.com.au/products/nemo-tensor-extreme-conditions-long-wide', priceCents: 45755, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Long wide version. R8.5.',
   },
   {
@@ -108,6 +148,12 @@ export const sleepingPads: SleepingPadSeedItem[] = [
     type: 'inflatable',
     rValue: null,
     thicknessCm: null,
+    whereToBuy: [
+      { retailer: 'NEMO', url: 'https://www.nemoequipment.com/products/tensor-elite', priceCents: 0, currency: 'AUD' },
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/nemo-tensor-elite.html', priceCents: 0, currency: 'AUD' },
+      { retailer: 'Ultralight Gear', url: 'https://www.ultralightgear.com.au/products/nemo-tensor-elite', priceCents: 0, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Lightest Tensor. 10D CORDURA. Single Thermal Mirror layer. Fastpacking / ultralight.',
   },
 
@@ -123,6 +169,12 @@ export const sleepingPads: SleepingPadSeedItem[] = [
     type: 'inflatable',
     rValue: 1.0,
     thicknessCm: 5.0,
+    whereToBuy: [
+      { retailer: 'Sea to Summit', url: 'https://seatosummit.com.au/products/ultralight-sleeping-pad', priceCents: 19999, currency: 'AUD' },
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/sea-to-summit-ultralight-air-mat.html', priceCents: 20599, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/ultralight-air-mat', priceCents: 20799, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Air Sprung Cell technology. 30D/40D nylon. Warm weather only. Pump sack included.',
   },
   {
@@ -136,6 +188,12 @@ export const sleepingPads: SleepingPadSeedItem[] = [
     type: 'inflatable',
     rValue: 4.2,
     thicknessCm: 6.3,
+    whereToBuy: [
+      { retailer: 'Sea to Summit', url: 'https://seatosummit.com.au/collections/sleeping-pads', priceCents: 29999, currency: 'AUD' },
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/sea-to-summit-comfort-light-insulated.html', priceCents: 30899, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/comfort-light-insulated-air-mat', priceCents: 31199, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Exkin Platinum insulation. Air Sprung Cells. 3-season. PillowLock system.',
   },
   {
@@ -149,6 +207,12 @@ export const sleepingPads: SleepingPadSeedItem[] = [
     type: 'inflatable',
     rValue: 4.7,
     thicknessCm: 8.0,
+    whereToBuy: [
+      { retailer: 'Sea to Summit', url: 'https://seatosummit.com.au/products/comfort-plus-xt-sleeping-pad', priceCents: 34999, currency: 'AUD' },
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/sea-to-summit-comfort-plus-xt-insulated.html', priceCents: 36049, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/comfort-plus-xt-insulated-air-mat', priceCents: 36399, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Dual-chamber Air Sprung Cells. Exkin Platinum + Thermolite. 30D/40D nylon. Year-round.',
   },
   {
@@ -162,6 +226,12 @@ export const sleepingPads: SleepingPadSeedItem[] = [
     type: 'self-inflating',
     rValue: 4.1,
     thicknessCm: 7.5,
+    whereToBuy: [
+      { retailer: 'Sea to Summit', url: 'https://seatosummit.com.au/products/pursuit-plus-self-inflating-sleeping-pad', priceCents: 29999, currency: 'AUD' },
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/sea-to-summit-pursuit-plus-si-contour.html', priceCents: 30899, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/pursuit-plus-self-inflating-mat-contour', priceCents: 31199, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Horizontal Delta Cores. Contour shape. 12% extra shoulder area. XPEL valve. ASTM-tested R4.1.',
   },
   {
@@ -175,6 +245,12 @@ export const sleepingPads: SleepingPadSeedItem[] = [
     type: 'self-inflating',
     rValue: 4.1,
     thicknessCm: 7.5,
+    whereToBuy: [
+      { retailer: 'Sea to Summit', url: 'https://seatosummit.com.au/products/pursuit-plus-self-inflating-sleeping-pad', priceCents: 31999, currency: 'AUD' },
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/sea-to-summit-pursuit-plus-si-rectangular.html', priceCents: 32959, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/pursuit-plus-self-inflating-mat-rectangular', priceCents: 33279, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Rectangular for maximum room. ASTM-tested R4.1. bluesign approved recycled fabric.',
   },
   {
@@ -188,6 +264,12 @@ export const sleepingPads: SleepingPadSeedItem[] = [
     type: 'self-inflating',
     rValue: 4.2,
     thicknessCm: 3.8,
+    whereToBuy: [
+      { retailer: 'Sea to Summit', url: 'https://seatosummit.com.au/products/camp-self-inflating-pad-past-season', priceCents: 18999, currency: 'AUD' },
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/sea-to-summit-camp-si-mat.html', priceCents: 19569, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/camp-self-inflating-mat', priceCents: 19759, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Delta Core-V technology. 75D polyester shell. Budget-friendly SI mat. PillowLock system.',
   },
 
@@ -203,6 +285,11 @@ export const sleepingPads: SleepingPadSeedItem[] = [
     type: 'inflatable',
     rValue: 4.5,
     thicknessCm: 8.9,
+    whereToBuy: [
+      { retailer: 'Backpacking Light', url: 'https://www.backpackinglight.com.au/products/big-agnes-rapide-sl-insulated-sleeping-mat', priceCents: 33995, currency: 'AUD' },
+      { retailer: 'Ultralight Gear', url: 'https://www.ultralightgear.com.au/products/big-agnes-rapide-sl-insulated', priceCents: 35015, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Wide 51cm. 15D top / 30D bottom. Ultra-quiet. R4.5.',
   },
 
@@ -218,6 +305,10 @@ export const sleepingPads: SleepingPadSeedItem[] = [
     type: 'inflatable',
     rValue: 1.2,
     thicknessCm: 6.5,
+    whereToBuy: [
+      { retailer: 'Zorali', url: 'https://www.zorali.com/products/treklite-ultralight-sleep-pad', priceCents: 0, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Featherweight 322g. 20D nylon ripstop TPU. Summer-ready. Lifetime warranty.',
   },
   {
@@ -231,7 +322,11 @@ export const sleepingPads: SleepingPadSeedItem[] = [
     type: 'inflatable',
     rValue: 6.0,
     thicknessCm: null,
-    notes: 'Triple Mylar film insulation. 20D nylon ripstop. Packs to 12×26cm. Lifetime warranty.',
+    whereToBuy: [
+      { retailer: 'Zorali', url: 'https://www.zorali.com/collections/sleeping-bags-1', priceCents: 0, currency: 'AUD' },
+    ],
+    imageUrls: [],
+    notes: 'Triple Mylar film insulation. 20D nylon ripstop. Packs to 12x26cm. Lifetime warranty.',
   },
   {
     name: 'Zorali Reclaimed Foam Camp Mat',
@@ -244,7 +339,11 @@ export const sleepingPads: SleepingPadSeedItem[] = [
     type: 'foam',
     rValue: null,
     thicknessCm: 1.9,
-    notes: 'Reclaimed closed-cell foam from manufacturing waste. 181×55cm. Hexagonal support.',
+    whereToBuy: [
+      { retailer: 'Zorali', url: 'https://www.zorali.com/products/reclaimed-foam-camp-mat', priceCents: 5700, currency: 'AUD' },
+    ],
+    imageUrls: [],
+    notes: 'Reclaimed closed-cell foam from manufacturing waste. 181x55cm. Hexagonal support.',
   },
   {
     name: 'Zorali Reclaimed Foam Sit Pad',
@@ -257,7 +356,11 @@ export const sleepingPads: SleepingPadSeedItem[] = [
     type: 'foam',
     rValue: null,
     thicknessCm: 1.6,
-    notes: '41.5×28.5cm sit pad. Reclaimed foam. 110g.',
+    whereToBuy: [
+      { retailer: 'Zorali', url: 'https://www.zorali.com/collections/sleeping-bags-1', priceCents: 0, currency: 'AUD' },
+    ],
+    imageUrls: [],
+    notes: '41.5x28.5cm sit pad. Reclaimed foam. 110g.',
   },
 
   // ── Thermarest ──────────────────────────────────────────────────────────────
@@ -272,6 +375,11 @@ export const sleepingPads: SleepingPadSeedItem[] = [
     type: 'foam',
     rValue: 2.0,
     thicknessCm: 2.0,
+    whereToBuy: [
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/thermarest-z-lite-sol-regular.html', priceCents: 8495, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/z-lite-sol-regular', priceCents: 8750, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Classic closed-cell foam. Accordion fold. Indestructible. ThermaCapture reflective coating.',
   },
 
@@ -287,6 +395,10 @@ export const sleepingPads: SleepingPadSeedItem[] = [
     type: 'inflatable',
     rValue: 1.5,
     thicknessCm: 7.5,
+    whereToBuy: [
+      { retailer: 'Alton Goods', url: 'https://altongoods.com/collections/sleeping-mats', priceCents: 14900, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Air-cell technology. Warm conditions only. Lightweight option. Lifetime warranty.',
   },
   {
@@ -300,7 +412,11 @@ export const sleepingPads: SleepingPadSeedItem[] = [
     type: 'inflatable',
     rValue: 4.0,
     thicknessCm: 7.5,
-    notes: 'THERMOLITE + heat-reflective foil. Year-round to -1°C. Micro-adjustable valve. Lifetime warranty.',
+    whereToBuy: [
+      { retailer: 'Alton Goods', url: 'https://altongoods.com/products/insulated-sleeping-mat', priceCents: 19900, currency: 'AUD' },
+    ],
+    imageUrls: [],
+    notes: 'THERMOLITE + heat-reflective foil. Year-round to -1C. Micro-adjustable valve. Lifetime warranty.',
   },
   {
     name: 'Alton Ultralight Insulated Sleeping Mat PLUS R6',
@@ -313,6 +429,10 @@ export const sleepingPads: SleepingPadSeedItem[] = [
     type: 'inflatable',
     rValue: 6.2,
     thicknessCm: 7.5,
+    whereToBuy: [
+      { retailer: 'Alton Goods', url: 'https://altongoods.com/collections/sleeping-mats', priceCents: 24900, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'ASTM certified R6.2. Third-party tested April 2025. Cold conditions. Lifetime warranty.',
   },
   {
@@ -326,6 +446,10 @@ export const sleepingPads: SleepingPadSeedItem[] = [
     type: 'inflatable',
     rValue: 4.0,
     thicknessCm: 7.5,
+    whereToBuy: [
+      { retailer: 'Alton Goods', url: 'https://altongoods.com/collections/sleeping-mats', priceCents: 22900, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Wide version. Same THERMOLITE insulation. For side sleepers. Lifetime warranty.',
   },
   {
@@ -339,6 +463,10 @@ export const sleepingPads: SleepingPadSeedItem[] = [
     type: 'foam',
     rValue: 2.0,
     thicknessCm: null,
+    whereToBuy: [
+      { retailer: 'Alton Goods', url: 'https://altongoods.com/collections/sleeping-mats', priceCents: 4900, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Puncture-proof. Pairs with inflatable for combined R6. Ultralight backup pad.',
   },
 
@@ -354,7 +482,11 @@ export const sleepingPads: SleepingPadSeedItem[] = [
     type: 'foam',
     rValue: null,
     thicknessCm: 0.8,
-    notes: '180×60cm open. PE foam. Folds to 60×13×15cm. Budget closed-cell option.',
+    whereToBuy: [
+      { retailer: 'Backpacking Light', url: 'https://www.backpackinglight.com.au/products/ultralight-folding-foam-sleeping-mat', priceCents: 4999, currency: 'AUD' },
+    ],
+    imageUrls: [],
+    notes: '180x60cm open. PE foam. Folds to 60x13x15cm. Budget closed-cell option.',
   },
   {
     name: 'Adventure Designs Ultralight Folding Sit Mat',
@@ -367,6 +499,10 @@ export const sleepingPads: SleepingPadSeedItem[] = [
     type: 'foam',
     rValue: null,
     thicknessCm: null,
+    whereToBuy: [
+      { retailer: 'Backpacking Light', url: 'https://www.backpackinglight.com.au/products/ultralight-folding-sit-mat', priceCents: 995, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Lightweight sit pad / partial torso pad.',
   },
 
@@ -382,6 +518,10 @@ export const sleepingPads: SleepingPadSeedItem[] = [
     type: 'inflatable',
     rValue: null,
     thicknessCm: 8.0,
+    whereToBuy: [
+      { retailer: 'Decathlon', url: 'https://www.decathlon.com.au/p/mt500-inflatable-trekking-sleeping-mat/_/R-p-303849', priceCents: 9999, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Budget inflatable. Good entry-level option. Available at Decathlon stores.',
   },
   {
@@ -395,6 +535,10 @@ export const sleepingPads: SleepingPadSeedItem[] = [
     type: 'self-inflating',
     rValue: null,
     thicknessCm: 3.0,
+    whereToBuy: [
+      { retailer: 'Decathlon', url: 'https://www.decathlon.com.au/p/trek-500-self-inflating-sleeping-mat/_/R-p-164813', priceCents: 7999, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Budget self-inflating. Good for car camping or budget-conscious hikers.',
   },
 
@@ -410,6 +554,11 @@ export const sleepingPads: SleepingPadSeedItem[] = [
     type: 'inflatable',
     rValue: null,
     thicknessCm: 5.0,
+    whereToBuy: [
+      { retailer: 'Naturehike', url: 'https://www.naturehike.com/collections/sleeping-pads', priceCents: 8999, currency: 'AUD' },
+      { retailer: 'Amazon AU', url: 'https://www.amazon.com.au/s?k=naturehike+sleeping+pad', priceCents: 9359, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Budget inflatable pad. Popular beginner/backup option.',
   },
 
@@ -425,6 +574,10 @@ export const sleepingPads: SleepingPadSeedItem[] = [
     type: 'inflatable',
     rValue: null,
     thicknessCm: 5.0,
+    whereToBuy: [
+      { retailer: 'Macpac', url: 'https://www.macpac.com.au/outdoor-equipment/sleeping-gear/', priceCents: 16999, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Lightweight inflatable. 3-season. Good value for AU hikers.',
   },
 
@@ -440,6 +593,10 @@ export const sleepingPads: SleepingPadSeedItem[] = [
     type: 'inflatable',
     rValue: null,
     thicknessCm: null,
+    whereToBuy: [
+      { retailer: 'Kathmandu', url: 'https://www.kathmandu.com.au/camp-and-hike/camping/beds-and-mats.html', priceCents: 14999, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Mid-range inflatable. 3-season AU use.',
   },
 ];

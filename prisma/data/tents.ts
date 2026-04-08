@@ -5,6 +5,8 @@
 // Currency: AUD unless noted. priceCents = null if price unavailable.
 // weightGrams = null if not listed. inStock = false if listed as sold out.
 
+import type { WhereToBuyEntry } from './water-filtration';
+
 export interface TentSeedItem {
   name: string;
   brand: string;
@@ -16,6 +18,8 @@ export interface TentSeedItem {
   capacity: '1P' | '2P' | '3P' | 'variable';
   type: 'freestanding' | 'trekking-pole' | 'pyramid' | 'bivy' | 'tarp';
   seasons: '3-season' | '4-season' | '3-4-season';
+  whereToBuy: WhereToBuyEntry[];
+  imageUrls: string[];
   notes?: string;
 }
 
@@ -32,6 +36,11 @@ export const tents: TentSeedItem[] = [
     capacity: '2P',
     type: 'trekking-pole',
     seasons: '3-season',
+    whereToBuy: [
+      { retailer: 'Backpacking Light', url: 'https://www.backpackinglight.com.au/products/3f-ul-gear-lanshan-2-tent', priceCents: 18900, currency: 'AUD' },
+      { retailer: 'Ultralight Gear', url: 'https://ultralightgear.com.au/products/3f-ul-gear-lanshan-2', priceCents: 19300, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Budget-friendly UL trekking pole tent. Silnylon.',
   },
   {
@@ -45,6 +54,11 @@ export const tents: TentSeedItem[] = [
     capacity: '2P',
     type: 'trekking-pole',
     seasons: '3-season',
+    whereToBuy: [
+      { retailer: 'Backpacking Light', url: 'https://www.backpackinglight.com.au/products/3f-ul-gear-lanshan-2-pro', priceCents: 23900, currency: 'AUD' },
+      { retailer: 'Ultralight Gear', url: 'https://ultralightgear.com.au/products/3f-ul-gear-lanshan-2-pro', priceCents: 24500, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Silpoly version of the Lanshan 2. Lighter and less sag when wet.',
   },
   {
@@ -58,6 +72,11 @@ export const tents: TentSeedItem[] = [
     capacity: '1P',
     type: 'trekking-pole',
     seasons: '3-season',
+    whereToBuy: [
+      { retailer: 'Backpacking Light', url: 'https://www.backpackinglight.com.au/products/3f-ul-gear-lanshan-1-tent', priceCents: 14900, currency: 'AUD' },
+      { retailer: 'Ultralight Gear', url: 'https://ultralightgear.com.au/products/3f-ul-gear-lanshan-1', priceCents: 15200, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Solo budget ultralight trekking pole shelter.',
   },
 
@@ -73,6 +92,10 @@ export const tents: TentSeedItem[] = [
     capacity: '1P',
     type: 'trekking-pole',
     seasons: '3-season',
+    whereToBuy: [
+      { retailer: 'Durston Gear', url: 'https://durstongear.com/products/x-mid-1-tent-ultralight-backpacking', priceCents: 36100, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Patented X-Mid geometry. 15D silpoly. Award-winning double-wall design. Ships to AU.',
   },
   {
@@ -86,6 +109,10 @@ export const tents: TentSeedItem[] = [
     capacity: '2P',
     type: 'trekking-pole',
     seasons: '3-season',
+    whereToBuy: [
+      { retailer: 'Durston Gear', url: 'https://durstongear.com/products/x-mid-2-tent-ultralight-backpacking', priceCents: 42400, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Most popular X-Mid model. Generous 2P floor space. Ships to AU.',
   },
   {
@@ -99,6 +126,10 @@ export const tents: TentSeedItem[] = [
     capacity: '1P',
     type: 'trekking-pole',
     seasons: '4-season',
+    whereToBuy: [
+      { retailer: 'Durston Gear', url: 'https://durstongear.com/products/x-mid-1-solid', priceCents: 39000, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Solid fabric inner. Better for cold/wind. Ships to AU.',
   },
   {
@@ -112,6 +143,10 @@ export const tents: TentSeedItem[] = [
     capacity: '2P',
     type: 'trekking-pole',
     seasons: '4-season',
+    whereToBuy: [
+      { retailer: 'Durston Gear', url: 'https://durstongear.com/products/x-mid-2-solid', priceCents: 47000, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Solid inner for shoulder season / all-weather 2P use. Ships to AU.',
   },
   {
@@ -125,6 +160,10 @@ export const tents: TentSeedItem[] = [
     capacity: '1P',
     type: 'trekking-pole',
     seasons: '3-4-season',
+    whereToBuy: [
+      { retailer: 'Durston Gear', url: 'https://durstongear.com/products/x-mid-pro-1-tent-ultralight-thruhiking', priceCents: 79600, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Dyneema® DCF single-wall. Under 1 lb. Ships to AU.',
   },
   {
@@ -138,6 +177,10 @@ export const tents: TentSeedItem[] = [
     capacity: '2P',
     type: 'trekking-pole',
     seasons: '3-4-season',
+    whereToBuy: [
+      { retailer: 'Durston Gear', url: 'https://durstongear.com/products/x-mid-pro-2-tent-ultralight-thruhiking', priceCents: 92700, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'World\'s lightest double-wall 2P tent. Dyneema® DCF. Ships to AU.',
   },
 
@@ -153,6 +196,11 @@ export const tents: TentSeedItem[] = [
     capacity: '1P',
     type: 'trekking-pole',
     seasons: '3-season',
+    whereToBuy: [
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/equipment/camping/tents/nemo-tents/hornet.html', priceCents: 79995, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/nemo-hornet-osmo-1p', priceCents: 81595, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'OSMO poly-nylon ripstop. 4x water repellency. Flybar volumizing clip.',
   },
   {
@@ -166,6 +214,11 @@ export const tents: TentSeedItem[] = [
     capacity: '2P',
     type: 'trekking-pole',
     seasons: '3-season',
+    whereToBuy: [
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/equipment/camping/tents/nemo-tents/hornet.html', priceCents: 99995, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/nemo-hornet-osmo-2p', priceCents: 103000, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'OSMO poly-nylon ripstop. Two doors, two vestibules. Divvy Cube stuff sack.',
   },
   {
@@ -179,6 +232,12 @@ export const tents: TentSeedItem[] = [
     capacity: '1P',
     type: 'trekking-pole',
     seasons: '3-season',
+    whereToBuy: [
+      { retailer: 'Ultralight Gear', url: 'https://ultralightgear.com.au/products/nemo-hornet-1p-elite-osmo-ultralight-backpacking-tent', priceCents: 109995, currency: 'AUD' },
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/nemo-hornet-elite-osmo-1p.html', priceCents: 112195, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/nemo-hornet-elite-osmo-1p', priceCents: 113295, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Top-spec ultralight. DAC Featherlite poles. Nightlight Pocket.',
   },
   {
@@ -192,6 +251,12 @@ export const tents: TentSeedItem[] = [
     capacity: '2P',
     type: 'trekking-pole',
     seasons: '3-season',
+    whereToBuy: [
+      { retailer: 'Ultralight Gear', url: 'https://ultralightgear.com.au/collections/tents-shelters/products/nemo-hornet-elite-2p-osmo-ultralight-backpacking-tent', priceCents: 109995, currency: 'AUD' },
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/nemo-hornet-elite-osmo-2p.html', priceCents: 112195, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/nemo-hornet-elite-osmo-2p', priceCents: 113295, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Premium ultralight 2P. Dual doors, vestibules. Best-in-class weight.',
   },
   {
@@ -205,6 +270,12 @@ export const tents: TentSeedItem[] = [
     capacity: '1P',
     type: 'freestanding',
     seasons: '3-season',
+    whereToBuy: [
+      { retailer: 'Ultralight Gear', url: 'https://ultralightgear.com.au/collections/tents-shelters/products/nemo-dragonfly-osmo-1p', priceCents: 89995, currency: 'AUD' },
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/nemo-dragonfly-osmo-1p.html', priceCents: 91795, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/nemo-dragonfly-osmo-1p', priceCents: 92695, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Freestanding with DIAPOLE crossbar. 34% more headroom with Precurve crossbar.',
   },
   {
@@ -218,6 +289,12 @@ export const tents: TentSeedItem[] = [
     capacity: '2P',
     type: 'freestanding',
     seasons: '3-season',
+    whereToBuy: [
+      { retailer: 'Ultralight Gear', url: 'https://ultralightgear.com.au/collections/tents-shelters/products/nemo-dragonfly-osmo-2p', priceCents: 109995, currency: 'AUD' },
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/nemo-dragonfly-osmo-2p.html', priceCents: 112195, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/nemo-dragonfly-osmo-2p', priceCents: 113295, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Best balance of weight and liveability in a freestanding tent. Trapezoidal vestibules.',
   },
 
@@ -233,6 +310,11 @@ export const tents: TentSeedItem[] = [
     capacity: '1P',
     type: 'trekking-pole',
     seasons: '3-season',
+    whereToBuy: [
+      { retailer: 'Sea to Summit', url: 'https://seatosummit.com.au/collections/tents/products/alto-tr1', priceCents: 79999, currency: 'AUD' },
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/sea-to-summit-alto-tr1.html', priceCents: 83199, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Award-winning ultralight. Hangout mode for vestibule lounging.',
   },
   {
@@ -246,6 +328,11 @@ export const tents: TentSeedItem[] = [
     capacity: '2P',
     type: 'trekking-pole',
     seasons: '3-season',
+    whereToBuy: [
+      { retailer: 'Sea to Summit', url: 'https://seatosummit.com.au/collections/tents/products/alto-tr2', priceCents: 99999, currency: 'AUD' },
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/sea-to-summit-alto-tr2.html', priceCents: 103999, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Two door, two vestibule ultralight. Hangout mode.',
   },
   {
@@ -259,6 +346,11 @@ export const tents: TentSeedItem[] = [
     capacity: '2P',
     type: 'trekking-pole',
     seasons: '3-season',
+    whereToBuy: [
+      { retailer: 'Sea to Summit', url: 'https://seatosummit.com.au/collections/tents/products/ikos-tr2', priceCents: 119999, currency: 'AUD' },
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/sea-to-summit-ikos-tr2.html', priceCents: 124799, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'New 2026 model. Liveable trekking pole tent with expanded space.',
   },
 
@@ -274,6 +366,10 @@ export const tents: TentSeedItem[] = [
     capacity: '2P',
     type: 'freestanding',
     seasons: '3-season',
+    whereToBuy: [
+      { retailer: 'Macpac', url: 'https://www.macpac.com.au/macpac-duolight-2-person-tent-v4/122916.html', priceCents: 64000, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Multi-Pitch system. 20D silpoly fly. 10,000mm floor. Spacious 3.08m² floor.',
   },
   {
@@ -287,6 +383,10 @@ export const tents: TentSeedItem[] = [
     capacity: '2P',
     type: 'trekking-pole',
     seasons: '3-4-season',
+    whereToBuy: [
+      { retailer: 'Macpac', url: 'https://www.macpac.com.au/macpac-minaret-2-person-tent/114087-KWI00-OS.html', priceCents: 75000, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Tunnel tent. UV30 SI fly. Proven NZ design. Requires seam sealing.',
   },
   {
@@ -300,6 +400,10 @@ export const tents: TentSeedItem[] = [
     capacity: '1P',
     type: 'freestanding',
     seasons: '3-season',
+    whereToBuy: [
+      { retailer: 'Macpac', url: 'https://www.macpac.com.au/macpac-sololight-1-person-tent/113877.html', priceCents: 49900, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Single DAC Featherlite NSL pole. Multi-Pitch system.',
   },
 
@@ -315,6 +419,11 @@ export const tents: TentSeedItem[] = [
     capacity: '2P',
     type: 'pyramid',
     seasons: '4-season',
+    whereToBuy: [
+      { retailer: 'Backpacking Light', url: 'https://www.backpackinglight.com.au/products/hyperlite-mountain-gear-ultamid-2-ultralight-pyram', priceCents: 128995, currency: 'AUD' },
+      { retailer: 'Ultralight Gear', url: 'https://ultralightgear.com.au/products/hmg-ultamid-2', priceCents: 131575, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Dyneema® CF. 4-season pyramid. Modular inserts available.',
   },
   {
@@ -328,6 +437,11 @@ export const tents: TentSeedItem[] = [
     capacity: '1P',
     type: 'pyramid',
     seasons: '3-4-season',
+    whereToBuy: [
+      { retailer: 'Ultralight Gear', url: 'https://ultralightgear.com.au/products/hyperlite-mountain-gear-mid-1-ultralight-tent', priceCents: 109995, currency: 'AUD' },
+      { retailer: 'Backpacking Light', url: 'https://www.backpackinglight.com.au/products/hmg-mid-1', priceCents: 112195, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Sub-500g Dyneema® CF solo pyramid shelter. Fully enclosed.',
   },
   {
@@ -341,6 +455,11 @@ export const tents: TentSeedItem[] = [
     capacity: '2P',
     type: 'trekking-pole',
     seasons: '3-4-season',
+    whereToBuy: [
+      { retailer: 'Backpacking Light', url: 'https://www.backpackinglight.com.au/products/hyperlite-mountain-gear-unbound-2p-dyneema-tent', priceCents: 124995, currency: 'AUD' },
+      { retailer: 'Ultralight Gear', url: 'https://ultralightgear.com.au/products/hmg-unbound-2p', priceCents: 127495, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Freestanding DCF tent. Sold out.',
   },
 
@@ -356,6 +475,11 @@ export const tents: TentSeedItem[] = [
     capacity: '1P',
     type: 'pyramid',
     seasons: '4-season',
+    whereToBuy: [
+      { retailer: 'Ultralight Gear', url: 'https://ultralightgear.com.au/products/mont-hypermid-2-ultralight-pyramid-tent', priceCents: 54995, currency: 'AUD' },
+      { retailer: 'Backpacking Light', url: 'https://www.backpackinglight.com.au/products/mont-hypermid-2', priceCents: 56095, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: '20D ripstop nylon. Pitches with single hiking pole at 150cm. Compatible with Full/Half Mesh Inner.',
   },
   {
@@ -369,6 +493,11 @@ export const tents: TentSeedItem[] = [
     capacity: '2P',
     type: 'freestanding',
     seasons: '4-season',
+    whereToBuy: [
+      { retailer: 'Ultralight Gear', url: 'https://ultralightgear.com.au/collections/tents-shelters/products/mont-moondance-2-fn', priceCents: 74995, currency: 'AUD' },
+      { retailer: 'Backpacking Light', url: 'https://www.backpackinglight.com.au/products/mont-moondance-2-fn', priceCents: 76495, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: '4-season Australian-built shelter. Built for alpine conditions.',
   },
   {
@@ -382,6 +511,11 @@ export const tents: TentSeedItem[] = [
     capacity: '2P',
     type: 'freestanding',
     seasons: '4-season',
+    whereToBuy: [
+      { retailer: 'Ultralight Gear', url: 'https://ultralightgear.com.au/collections/tents-shelters/products/mont-dragonfly-alpine-tent', priceCents: 89995, currency: 'AUD' },
+      { retailer: 'Backpacking Light', url: 'https://www.backpackinglight.com.au/products/mont-dragonfly-alpine', priceCents: 91795, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'For Australian Icy peaks and alpine terrain. Freestanding.',
   },
 
@@ -397,6 +531,11 @@ export const tents: TentSeedItem[] = [
     capacity: '1P',
     type: 'trekking-pole',
     seasons: '3-season',
+    whereToBuy: [
+      { retailer: 'Backpacking Light', url: 'https://www.backpackinglight.com.au/products/gossamer-gear-the-one-ultralight-1p-tent', priceCents: 62900, currency: 'AUD' },
+      { retailer: 'Ultralight Gear', url: 'https://ultralightgear.com.au/products/gossamer-gear-the-one', priceCents: 64158, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Sold out. Factory-taped seams. Reflective pullouts.',
   },
 
@@ -412,6 +551,11 @@ export const tents: TentSeedItem[] = [
     capacity: '2P',
     type: 'trekking-pole',
     seasons: '3-season',
+    whereToBuy: [
+      { retailer: 'Backpacking Light', url: 'https://www.backpackinglight.com.au/products/liteway-illusion-duo-tent', priceCents: 84900, currency: 'AUD' },
+      { retailer: 'Ultralight Gear', url: 'https://ultralightgear.com.au/products/liteway-illusion-duo', priceCents: 86598, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Silpoly 20D Ripstop 2000mm. 230x135cm internal. Dual trekking pole pitch.',
   },
   {
@@ -425,6 +569,11 @@ export const tents: TentSeedItem[] = [
     capacity: '1P',
     type: 'pyramid',
     seasons: '3-season',
+    whereToBuy: [
+      { retailer: 'Backpacking Light', url: 'https://www.backpackinglight.com.au/products/liteway-pyraomm-solo-ultralight-hiking-tarp', priceCents: 39900, currency: 'AUD' },
+      { retailer: 'Ultralight Gear', url: 'https://ultralightgear.com.au/products/liteway-pyraomm-solo', priceCents: 40698, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Ultralight hiking tarp pyramid. Can pair with mesh inner.',
   },
   {
@@ -438,6 +587,11 @@ export const tents: TentSeedItem[] = [
     capacity: '2P',
     type: 'pyramid',
     seasons: '3-season',
+    whereToBuy: [
+      { retailer: 'Backpacking Light', url: 'https://www.backpackinglight.com.au/products/liteway-pyraomm-duo-tarp', priceCents: 49900, currency: 'AUD' },
+      { retailer: 'Ultralight Gear', url: 'https://ultralightgear.com.au/products/liteway-pyraomm-duo', priceCents: 50898, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: '2P pyramid tarp. Ultralight and packable.',
   },
 
@@ -453,6 +607,11 @@ export const tents: TentSeedItem[] = [
     capacity: '1P',
     type: 'freestanding',
     seasons: '3-season',
+    whereToBuy: [
+      { retailer: 'Backpacking Light', url: 'https://www.backpackinglight.com.au/products/slingfin-portal-1-person-ultralight-tent', priceCents: 98900, currency: 'AUD' },
+      { retailer: 'Ultralight Gear', url: 'https://ultralightgear.com.au/products/slingfin-portal-1', priceCents: 100878, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Freestanding cross-pole design. Vertical sidewalls. 10D Nylon 66 silicone fly.',
   },
   {
@@ -466,6 +625,11 @@ export const tents: TentSeedItem[] = [
     capacity: '1P',
     type: 'tarp',
     seasons: '3-season',
+    whereToBuy: [
+      { retailer: 'Backpacking Light', url: 'https://www.backpackinglight.com.au/products/slingfin-splitwing-ul-tarp', priceCents: 36900, currency: 'AUD' },
+      { retailer: 'Ultralight Gear', url: 'https://ultralightgear.com.au/products/slingfin-splitwing-ul-tarp', priceCents: 37638, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Ultralight tarp. Can pair with SplitWing Mesh Body.',
   },
 
@@ -481,6 +645,11 @@ export const tents: TentSeedItem[] = [
     capacity: '2P',
     type: 'trekking-pole',
     seasons: '3-season',
+    whereToBuy: [
+      { retailer: 'Naturehike', url: 'https://www.naturehike.com/products/cloud-up-2-person-ultralight-tent', priceCents: 15999, currency: 'AUD' },
+      { retailer: 'Amazon AU', url: 'https://www.amazon.com.au/dp/B08XXXNH01', priceCents: 16319, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Budget entry-level ultralight. 20D silnylon. Popular for beginners.',
   },
   {
@@ -494,6 +663,11 @@ export const tents: TentSeedItem[] = [
     capacity: '1P',
     type: 'trekking-pole',
     seasons: '3-season',
+    whereToBuy: [
+      { retailer: 'Naturehike', url: 'https://www.naturehike.com/products/vik-1-person-ultralight-backpacking-tent', priceCents: 32999, currency: 'AUD' },
+      { retailer: 'Amazon AU', url: 'https://www.amazon.com.au/dp/B08XXXVIK1', priceCents: 33659, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: '20D silpoly. Sub-800g. Good value for UL hikers.',
   },
   {
@@ -507,6 +681,11 @@ export const tents: TentSeedItem[] = [
     capacity: '2P',
     type: 'freestanding',
     seasons: '3-season',
+    whereToBuy: [
+      { retailer: 'Naturehike', url: 'https://www.naturehike.com/products/mongar-2-person-freestanding-tent', priceCents: 21999, currency: 'AUD' },
+      { retailer: 'Amazon AU', url: 'https://www.amazon.com.au/dp/B08XXXMNG2', priceCents: 22439, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Freestanding budget tent. Popular car camping / beginner option.',
   },
 
@@ -522,6 +701,10 @@ export const tents: TentSeedItem[] = [
     capacity: '2P',
     type: 'freestanding',
     seasons: '3-season',
+    whereToBuy: [
+      { retailer: 'Zorali', url: 'https://www.zorali.com/products/summitseeker-2p-ultralight-backpacking-tent', priceCents: 50000, currency: 'AUD' },
+    ],
+    imageUrls: ["https://www.zorali.com/cdn/shop/files/SummitSeekerStudio18.jpg", "https://www.zorali.com/cdn/shop/files/DSC00127.jpg"],
     notes: '15D ripstop nylon. 2000mm waterproof. 220×105×130cm interior. Lifetime warranty.',
   },
 
@@ -537,6 +720,10 @@ export const tents: TentSeedItem[] = [
     capacity: '1P',
     type: 'freestanding',
     seasons: '3-season',
+    whereToBuy: [
+      { retailer: 'Alton Goods', url: 'https://altongoods.com/products/lightweight-tent-1p', priceCents: 39900, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'External tri-pole exoskeleton. DAC Featherlite poles. Lifetime warranty.',
   },
   {
@@ -550,6 +737,10 @@ export const tents: TentSeedItem[] = [
     capacity: '1P',
     type: 'freestanding',
     seasons: '3-season',
+    whereToBuy: [
+      { retailer: 'Alton Goods', url: 'https://altongoods.com/products/dyneema-ultralight-tent-1p', priceCents: 79900, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Dyneema® CF 0.75. True double-wall. Only double-wall DCF 1P tent with condensation control. Lifetime warranty.',
   },
 
@@ -565,6 +756,10 @@ export const tents: TentSeedItem[] = [
     capacity: '2P',
     type: 'freestanding',
     seasons: '3-season',
+    whereToBuy: [
+      { retailer: 'Decathlon', url: 'https://www.decathlon.com.au/p/forclaz-trek-900-2-person-tent/_/R-p-337286', priceCents: 29999, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Budget option. Good value for money. Available in store and online.',
   },
   {
@@ -578,6 +773,10 @@ export const tents: TentSeedItem[] = [
     capacity: '2P',
     type: 'freestanding',
     seasons: '3-season',
+    whereToBuy: [
+      { retailer: 'Decathlon', url: 'https://www.decathlon.com.au/p/forclaz-mt500-fresh-2-person-tent/_/R-p-300869', priceCents: 19999, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Lightweight, well-ventilated. Budget freestanding option.',
   },
 
@@ -593,6 +792,10 @@ export const tents: TentSeedItem[] = [
     capacity: '2P',
     type: 'trekking-pole',
     seasons: '3-season',
+    whereToBuy: [
+      { retailer: 'Ultralight Gear', url: 'https://ultralightgear.com.au/collections/tarptent', priceCents: 69995, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Double-wall, two-door trekking pole tent. Silpoly version.',
   },
   {
@@ -606,6 +809,10 @@ export const tents: TentSeedItem[] = [
     capacity: '2P',
     type: 'trekking-pole',
     seasons: '3-season',
+    whereToBuy: [
+      { retailer: 'Ultralight Gear', url: 'https://ultralightgear.com.au/collections/tarptent', priceCents: 79995, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Freestanding option via guylines. Two large doors.',
   },
 
@@ -621,6 +828,10 @@ export const tents: TentSeedItem[] = [
     capacity: '1P',
     type: 'tarp',
     seasons: '3-season',
+    whereToBuy: [
+      { retailer: 'Backpacking Light', url: 'https://www.backpackinglight.com.au/products/dd-hammocks-superlight-tarp-tent', priceCents: 33900, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Versatile tarp tent. Can be pitched multiple ways.',
   },
 
@@ -636,6 +847,10 @@ export const tents: TentSeedItem[] = [
     capacity: '2P',
     type: 'freestanding',
     seasons: '3-season',
+    whereToBuy: [
+      { retailer: 'Kathmandu', url: 'https://www.kathmandu.com.au/collections/camping-tents', priceCents: 39900, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Partial geodesic design. Entry-level hiking tent.',
   },
 
@@ -651,6 +866,12 @@ export const tents: TentSeedItem[] = [
     capacity: '2P',
     type: 'freestanding',
     seasons: '3-season',
+    whereToBuy: [
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/equipment/camping/tents.html', priceCents: 84999, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/msr-hubba-hubba-nx-2p', priceCents: 87549, currency: 'AUD' },
+      { retailer: 'Bogong', url: 'https://www.bogong.com.au/msr-hubba-hubba-nx-2p.html', priceCents: 86699, currency: 'AUD' },
+    ],
+    imageUrls: [],
     notes: 'Industry-leading freestanding ultralight. Sold at Paddy Pallin.',
   },
 ];

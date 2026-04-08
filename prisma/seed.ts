@@ -62,18 +62,6 @@ const categories = [
   },
 ];
 
-// ── Helpers ─────────────────────────────────────────────────────────────────
-
-function extractBrand(name: string, brand: string): string {
-  return brand;
-}
-
-// Convert cents + currency into AUD cents for storage.
-// USD prices are stored as-is with currency tag; conversion is done at runtime.
-function toPriceCents(priceCents: number | null, currency: string): number | null {
-  return priceCents; // store raw; currency field on GearItem handles conversion display
-}
-
 // ── Seed functions ─────────────────────────────────────────────────────────
 
 async function seedCategories() {
@@ -110,6 +98,8 @@ async function seedGearItems() {
       currency: t.currency,
       href: t.href,
       inStock: t.inStock,
+      whereToBuy: t.whereToBuy ?? [],
+      imageUrls: t.imageUrls ?? [],
       specs: {
         capacity: (t as any).capacity,
         type: (t as any).type,
@@ -126,6 +116,8 @@ async function seedGearItems() {
       currency: s.currency,
       href: s.href,
       inStock: s.inStock,
+      whereToBuy: s.whereToBuy ?? [],
+      imageUrls: s.imageUrls ?? [],
       specs: {
         type: s.type,
         fill: s.fill,
@@ -144,6 +136,8 @@ async function seedGearItems() {
       currency: p.currency,
       href: p.href,
       inStock: p.inStock,
+      whereToBuy: p.whereToBuy ?? [],
+      imageUrls: p.imageUrls ?? [],
       specs: {
         type: p.type,
         rValue: p.rValue,
@@ -160,6 +154,8 @@ async function seedGearItems() {
       currency: b.currency,
       href: b.href,
       inStock: b.inStock,
+      whereToBuy: b.whereToBuy ?? [],
+      imageUrls: b.imageUrls ?? [],
       specs: {
         volumeLitres: b.volumeLitres,
         frameType: b.frameType,
@@ -176,6 +172,8 @@ async function seedGearItems() {
       currency: p.currency,
       href: p.href,
       inStock: p.inStock,
+      whereToBuy: p.whereToBuy ?? [],
+      imageUrls: p.imageUrls ?? [],
       specs: {
         type: p.type,
         notes: p.notes,
@@ -190,6 +188,8 @@ async function seedGearItems() {
       currency: c.currency,
       href: c.href,
       inStock: c.inStock,
+      whereToBuy: c.whereToBuy ?? [],
+      imageUrls: c.imageUrls ?? [],
       specs: {
         type: c.type,
         fuelType: c.fuelType,
@@ -206,6 +206,8 @@ async function seedGearItems() {
       currency: w.currency,
       href: w.href,
       inStock: w.inStock,
+      whereToBuy: w.whereToBuy ?? [],
+      imageUrls: w.imageUrls ?? [],
       specs: {
         type: w.type,
         flowRate: w.flowRate,
@@ -240,6 +242,16 @@ async function seedGearItems() {
     });
 
     if (existing) {
+      // Update whereToBuy and imageUrls on re-seed
+      if (item.whereToBuy?.length || item.imageUrls?.length) {
+        const updateData: Record<string, unknown> = {};
+        if (item.whereToBuy?.length) updateData.whereToBuy = item.whereToBuy;
+        if (item.imageUrls?.length) updateData.imageUrls = item.imageUrls;
+        await prisma.gearItem.update({
+          where: { id: existing.id },
+          data: updateData as any,
+        });
+      }
       skipped++;
       continue;
     }
@@ -255,6 +267,8 @@ async function seedGearItems() {
         href: item.href,
         isDiscontinued: !item.inStock,
         specs: item.specs ?? {},
+        whereToBuy: (item.whereToBuy ?? []) as any,
+        imageUrls: (item.imageUrls ?? []) as any,
       },
     });
     created++;
@@ -334,45 +348,6 @@ async function seedExternalReviewSources() {
   console.log(`✓ ${created} external review sources created, ${skipped} skipped.`);
 }
 
-async function seedWhereToBuy() {
-  console.log('Seeding where-to-buy data...');
-
-  const mockWhereToBuy: Record<string, { retailer: string; url: string; priceCents: number; currency: string }[]> = {
-    'Sawyer Squeeze Water Filter': [
-      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/sawyer-squeeze-filter.html', priceCents: 5995, currency: 'AUD' },
-      { retailer: 'Snowys', url: 'https://www.snowys.com.au/squeeze-water-filter', priceCents: 6295, currency: 'AUD' },
-    ],
-    'MSR PocketRocket 2': [
-      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/msr-pocketrocket-2-stove.html', priceCents: 8995, currency: 'AUD' },
-      { retailer: 'Wildfire Sports', url: 'https://www.wildfiresports.com.au/msr-pocketrocket-2', priceCents: 8995, currency: 'AUD' },
-      { retailer: 'Snowys', url: 'https://www.snowys.com.au/pocketrocket-2', priceCents: 9295, currency: 'AUD' },
-    ],
-    'TOAKS Titanium 750ml Pot': [
-      { retailer: 'Ultralight Hiker', url: 'https://www.ultralighthiker.com.au/toaks-titanium-750ml-pot.html', priceCents: 5495, currency: 'AUD' },
-    ],
-    'Katadyn BeFree 1.0L': [
-      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/katadyn-befree-1l.html', priceCents: 7495, currency: 'AUD' },
-      { retailer: 'Bogong', url: 'https://www.bogong.com.au/katadyn-befree-1l.html', priceCents: 7495, currency: 'AUD' },
-    ],
-    'Jetboil Flash Cooking System': [
-      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/jetboil-flash-cooking-system.html', priceCents: 23995, currency: 'AUD' },
-      { retailer: 'Snowys', url: 'https://www.snowys.com.au/flash-cooking-system', priceCents: 23995, currency: 'AUD' },
-    ],
-  };
-
-  let updated = 0;
-  for (const [itemName, entries] of Object.entries(mockWhereToBuy)) {
-    const item = await prisma.gearItem.findFirst({ where: { name: itemName } });
-    if (!item) continue;
-    await prisma.gearItem.update({
-      where: { id: item.id },
-      data: { whereToBuy: entries },
-    });
-    updated++;
-  }
-  console.log(`✓ ${updated} items updated with where-to-buy data.`);
-}
-
 async function seedSiteDeals() {
   console.log('Seeding site-wide deals...');
 
@@ -423,7 +398,6 @@ async function main() {
     await seedGearItems();
     await seedUpgradeEdges();
     await seedExternalReviewSources();
-    await seedWhereToBuy();
     await seedSiteDeals();
     console.log('\n✅ Seed complete.');
   } catch (err) {

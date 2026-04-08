@@ -1,3 +1,10 @@
+export interface WhereToBuyEntry {
+  retailer: string;
+  url: string;
+  priceCents: number;
+  currency: string;
+}
+
 export interface WaterFiltrationSeedItem {
   name: string;
   brand: string;
@@ -9,6 +16,8 @@ export interface WaterFiltrationSeedItem {
   type: "filter" | "purifier" | "chemical" | "container";
   flowRate?: string;
   notes?: string;
+  whereToBuy: WhereToBuyEntry[];
+  imageUrls: string[];
 }
 
 export const waterFiltration: WaterFiltrationSeedItem[] = [
@@ -23,6 +32,12 @@ export const waterFiltration: WaterFiltrationSeedItem[] = [
     type: "filter",
     flowRate: "1.7 L/min",
     notes: "Hollow-fibre 0.1 micron. Backflushable. Includes 3 squeeze pouches. Gold standard for thru-hikers.",
+    whereToBuy: [
+      { retailer: "Paddy Pallin", url: "https://www.paddypallin.com.au/sawyer-squeeze-filter.html", priceCents: 5995, currency: "AUD" },
+      { retailer: "Snowys", url: "https://www.snowys.com.au/squeeze-water-filter", priceCents: 6295, currency: "AUD" },
+      { retailer: "Wild Earth", url: "https://www.wildearth.com.au/sawyer-squeeze-water-filter", priceCents: 5995, currency: "AUD" },
+    ],
+    imageUrls: [],
   },
   {
     name: "Katadyn BeFree 1.0L",
@@ -35,6 +50,12 @@ export const waterFiltration: WaterFiltrationSeedItem[] = [
     type: "filter",
     flowRate: "2.0 L/min",
     notes: "0.1 micron EZ-Clean Membrane. Ultra-fast flow. Integrated soft flask. 59g total.",
+    whereToBuy: [
+      { retailer: "Paddy Pallin", url: "https://www.paddypallin.com.au/katadyn-befree-1l.html", priceCents: 7495, currency: "AUD" },
+      { retailer: "Bogong", url: "https://www.bogong.com.au/katadyn-befree-1l.html", priceCents: 7495, currency: "AUD" },
+      { retailer: "Snowys", url: "https://www.snowys.com.au/befree-1l-water-filter", priceCents: 7695, currency: "AUD" },
+    ],
+    imageUrls: [],
   },
   {
     name: "Sawyer Micro Squeeze",
@@ -47,6 +68,11 @@ export const waterFiltration: WaterFiltrationSeedItem[] = [
     type: "filter",
     flowRate: "1.5 L/min",
     notes: "Compact version of the Squeeze. Fits standard bottle threads. 57g. Backflushable.",
+    whereToBuy: [
+      { retailer: "Paddy Pallin", url: "https://www.paddypallin.com.au/sawyer-micro-squeeze.html", priceCents: 5495, currency: "AUD" },
+      { retailer: "Snowys", url: "https://www.snowys.com.au/micro-squeeze-water-filter", priceCents: 5695, currency: "AUD" },
+    ],
+    imageUrls: [],
   },
   {
     name: "Aquamira Water Treatment Drops",
@@ -58,6 +84,10 @@ export const waterFiltration: WaterFiltrationSeedItem[] = [
     inStock: true,
     type: "chemical",
     notes: "Chlorine dioxide two-part drops. Treats 30 gallons. Good backup to filter. 15-min wait time.",
+    whereToBuy: [
+      { retailer: "Ultralight Hiker", url: "https://www.ultralighthiker.com.au/aquamira-drops.html", priceCents: 2495, currency: "AUD" },
+    ],
+    imageUrls: [],
   },
   {
     name: "CNOC Vecto 3L Water Container",
@@ -69,6 +99,11 @@ export const waterFiltration: WaterFiltrationSeedItem[] = [
     inStock: true,
     type: "container",
     notes: "3L dirty water bag. 42mm thread fits Sawyer filters. Slide-lock closure. 54g. BPA-free.",
+    whereToBuy: [
+      { retailer: "Ultralight Hiker", url: "https://www.ultralighthiker.com.au/cnoc-vecto-3l.html", priceCents: 3995, currency: "AUD" },
+      { retailer: "Backpacking Light", url: "https://www.backpackinglight.com.au/products/cnoc-vecto-3l", priceCents: 4195, currency: "AUD" },
+    ],
+    imageUrls: [],
   },
   {
     name: "CNOC Vecto 2L Water Container",
@@ -80,6 +115,11 @@ export const waterFiltration: WaterFiltrationSeedItem[] = [
     inStock: true,
     type: "container",
     notes: "2L dirty water bag. Same Sawyer-compatible thread as 3L. Lighter for shorter carries.",
+    whereToBuy: [
+      { retailer: "Ultralight Hiker", url: "https://www.ultralighthiker.com.au/cnoc-vecto-2l.html", priceCents: 3495, currency: "AUD" },
+      { retailer: "Backpacking Light", url: "https://www.backpackinglight.com.au/products/cnoc-vecto-2l", priceCents: 3695, currency: "AUD" },
+    ],
+    imageUrls: [],
   },
   {
     name: "SteriPEN Ultra UV Purifier",
@@ -91,5 +131,10 @@ export const waterFiltration: WaterFiltrationSeedItem[] = [
     inStock: true,
     type: "purifier",
     notes: "UV light purifier. USB rechargeable. Treats 0.5L in 48 sec or 1L in 90 sec. Also kills viruses.",
+    whereToBuy: [
+      { retailer: "Snowys", url: "https://www.snowys.com.au/steripen-ultra.html", priceCents: 14995, currency: "AUD" },
+      { retailer: "Paddy Pallin", url: "https://www.paddypallin.com.au/steripen-ultra-uv-purifier.html", priceCents: 14995, currency: "AUD" },
+    ],
+    imageUrls: [],
   },
 ];

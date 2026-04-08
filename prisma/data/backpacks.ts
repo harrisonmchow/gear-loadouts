@@ -4,6 +4,8 @@
 // seatosummit.com.au, osprey.com/au
 // Currency: AUD unless noted.
 
+import type { WhereToBuyEntry } from './water-filtration';
+
 export interface BackpackSeedItem {
   name: string;
   brand: string;
@@ -16,6 +18,8 @@ export interface BackpackSeedItem {
   frameType: 'frameless' | 'internal' | 'external' | 'semi-frame';
   gender: 'unisex' | 'mens' | 'womens';
   notes?: string;
+  whereToBuy: WhereToBuyEntry[];
+  imageUrls: string[];
 }
 
 export const backpacks: BackpackSeedItem[] = [
@@ -32,6 +36,12 @@ export const backpacks: BackpackSeedItem[] = [
     frameType: 'internal',
     gender: 'mens',
     notes: 'Airspeed back panel. AirScape suspension. Adjustable torso. Hipbelt pockets.',
+    whereToBuy: [
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/equipment/packs/hiking-packs.html', priceCents: 39900, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/osprey-exos-38', priceCents: 40900, currency: 'AUD' },
+      { retailer: 'Wild Earth', url: 'https://www.wildearth.com.au/osprey-exos-38', priceCents: 41500, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Osprey Exos 48',
@@ -45,6 +55,12 @@ export const backpacks: BackpackSeedItem[] = [
     frameType: 'internal',
     gender: 'mens',
     notes: 'Airspeed suspended mesh. Adjustable torso. 100% recycled materials. Removable lid.',
+    whereToBuy: [
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/equipment/packs/hiking-packs.html', priceCents: 39900, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/osprey-exos-48', priceCents: 40900, currency: 'AUD' },
+      { retailer: 'Bogong', url: 'https://www.bogong.com.au/osprey-exos-48.html', priceCents: 41500, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Osprey Exos 58',
@@ -58,6 +74,12 @@ export const backpacks: BackpackSeedItem[] = [
     frameType: 'internal',
     gender: 'mens',
     notes: 'Flagship men\'s ultralight. Airspeed back panel. Deep mesh side pockets.',
+    whereToBuy: [
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/equipment/packs/hiking-packs.html', priceCents: 42900, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/osprey-exos-58', priceCents: 43900, currency: 'AUD' },
+      { retailer: 'Wild Earth', url: 'https://www.wildearth.com.au/osprey-exos-58', priceCents: 44500, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Osprey Eja 38',
@@ -71,6 +93,12 @@ export const backpacks: BackpackSeedItem[] = [
     frameType: 'internal',
     gender: 'womens',
     notes: "Women's Exos equivalent. Airspeed suspension. Slightly lighter than Exos.",
+    whereToBuy: [
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/equipment/packs/hiking-packs.html', priceCents: 39900, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/osprey-eja-38', priceCents: 40900, currency: 'AUD' },
+      { retailer: 'Bogong', url: 'https://www.bogong.com.au/osprey-eja-38.html', priceCents: 41500, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Osprey Eja 48',
@@ -84,6 +112,12 @@ export const backpacks: BackpackSeedItem[] = [
     frameType: 'internal',
     gender: 'womens',
     notes: "Women's specific fit. Airspeed back panel. 100% recycled.",
+    whereToBuy: [
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/equipment/packs/hiking-packs.html', priceCents: 39900, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/osprey-eja-48', priceCents: 40900, currency: 'AUD' },
+      { retailer: 'Wild Earth', url: 'https://www.wildearth.com.au/osprey-eja-48', priceCents: 41500, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Osprey Eja 58',
@@ -97,6 +131,12 @@ export const backpacks: BackpackSeedItem[] = [
     frameType: 'internal',
     gender: 'womens',
     notes: "Women's flagship ultralight. Women's specific torso lengths.",
+    whereToBuy: [
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/equipment/packs/hiking-packs.html', priceCents: 42900, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/osprey-eja-58', priceCents: 43900, currency: 'AUD' },
+      { retailer: 'Bogong', url: 'https://www.bogong.com.au/osprey-eja-58.html', priceCents: 44500, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Osprey Exos Pro 55',
@@ -110,6 +150,12 @@ export const backpacks: BackpackSeedItem[] = [
     frameType: 'internal',
     gender: 'mens',
     notes: 'Under 1kg. UHMWPE ripstop. Minimal padding. For true gram-counters.',
+    whereToBuy: [
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/equipment/packs/hiking-packs.html', priceCents: 47999, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/osprey-exos-pro-55', priceCents: 48999, currency: 'AUD' },
+      { retailer: 'Wild Earth', url: 'https://www.wildearth.com.au/osprey-exos-pro-55', priceCents: 49500, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Osprey Aether 65',
@@ -123,6 +169,12 @@ export const backpacks: BackpackSeedItem[] = [
     frameType: 'internal',
     gender: 'mens',
     notes: 'Fully featured comfort pack. AG Anti-Gravity suspension. For heavier loads.',
+    whereToBuy: [
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/equipment/packs/hiking-packs.html', priceCents: 52900, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/osprey-aether-65', priceCents: 54200, currency: 'AUD' },
+      { retailer: 'Bogong', url: 'https://www.bogong.com.au/osprey-aether-65.html', priceCents: 54900, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Osprey Aura AG 65',
@@ -136,6 +188,12 @@ export const backpacks: BackpackSeedItem[] = [
     frameType: 'internal',
     gender: 'womens',
     notes: "Women's Anti-Gravity suspension. For heavier multi-day loads.",
+    whereToBuy: [
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/equipment/packs/hiking-packs.html', priceCents: 56900, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/osprey-aura-ag-65', priceCents: 58200, currency: 'AUD' },
+      { retailer: 'Wild Earth', url: 'https://www.wildearth.com.au/osprey-aura-ag-65', priceCents: 58900, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
 
   // ── Hyperlite Mountain Gear ───────────────────────────────────────────────────
@@ -151,6 +209,11 @@ export const backpacks: BackpackSeedItem[] = [
     frameType: 'frameless',
     gender: 'unisex',
     notes: 'Dyneema® CF. Under 600g. Internal frame sheet. 100% waterproof. Hyperlite flagship.',
+    whereToBuy: [
+      { retailer: 'Backpacking Light', url: 'https://www.backpackinglight.com.au/collections/ultralight-hiking-packs', priceCents: 41995, currency: 'AUD' },
+      { retailer: 'Ultralight Gear', url: 'https://www.ultralightgear.com.au/hmg-2400-southwest', priceCents: 42995, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Hyperlite Mountain Gear 3400 Southwest 55L',
@@ -164,6 +227,11 @@ export const backpacks: BackpackSeedItem[] = [
     frameType: 'frameless',
     gender: 'unisex',
     notes: 'Dyneema® CF. 55L volume. Most popular HMG pack for multi-day trips.',
+    whereToBuy: [
+      { retailer: 'Backpacking Light', url: 'https://www.backpackinglight.com.au/collections/ultralight-hiking-packs', priceCents: 47995, currency: 'AUD' },
+      { retailer: 'Ultralight Gear', url: 'https://www.ultralightgear.com.au/hmg-3400-southwest', priceCents: 48995, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Hyperlite Mountain Gear Unbound 40L',
@@ -177,6 +245,11 @@ export const backpacks: BackpackSeedItem[] = [
     frameType: 'frameless',
     gender: 'unisex',
     notes: 'Dyneema® CF. Ultralight frameless. Pairs well with HMG tents.',
+    whereToBuy: [
+      { retailer: 'Backpacking Light', url: 'https://www.backpackinglight.com.au/collections/ultralight-hiking-packs', priceCents: 0, currency: 'AUD' },
+      { retailer: 'Ultralight Gear', url: 'https://www.ultralightgear.com.au/hmg-unbound-40', priceCents: 0, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
 
   // ── Gossamer Gear ────────────────────────────────────────────────────────────
@@ -192,6 +265,11 @@ export const backpacks: BackpackSeedItem[] = [
     frameType: 'semi-frame',
     gender: 'unisex',
     notes: 'Flexible frame stays. Moderate support. Popular thru-hiker pack. Ships to AU.',
+    whereToBuy: [
+      { retailer: 'Backpacking Light', url: 'https://www.backpackinglight.com.au/collections/hiking-packs', priceCents: 0, currency: 'USD' },
+      { retailer: 'Ultralight Gear', url: 'https://www.ultralightgear.com.au/gossamer-gear-gorilla', priceCents: 0, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Gossamer Gear Mariposa 60L',
@@ -205,6 +283,11 @@ export const backpacks: BackpackSeedItem[] = [
     frameType: 'semi-frame',
     gender: 'unisex',
     notes: 'Under 1kg for 60L. Popular for longer multi-day trips. Ships to AU.',
+    whereToBuy: [
+      { retailer: 'Backpacking Light', url: 'https://www.backpackinglight.com.au/collections/hiking-packs', priceCents: 0, currency: 'USD' },
+      { retailer: 'Ultralight Gear', url: 'https://www.ultralightgear.com.au/gossamer-gear-mariposa', priceCents: 0, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
 
   // ── Macpac ───────────────────────────────────────────────────────────────────
@@ -220,6 +303,10 @@ export const backpacks: BackpackSeedItem[] = [
     frameType: 'internal',
     gender: 'unisex',
     notes: 'Proven NZ design. 65L for multi-day. Well-fitting AU workhorse pack.',
+    whereToBuy: [
+      { retailer: 'Macpac', url: 'https://www.macpac.com.au/backpacks-bags/outdoor-adventure/hiking', priceCents: 39900, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Macpac Torlesse 50L',
@@ -233,6 +320,10 @@ export const backpacks: BackpackSeedItem[] = [
     frameType: 'internal',
     gender: 'unisex',
     notes: 'Mid-volume hiking pack. Good for 3-5 day trips.',
+    whereToBuy: [
+      { retailer: 'Macpac', url: 'https://www.macpac.com.au/backpacks-bags/outdoor-adventure/hiking', priceCents: 34900, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Macpac Fiord 30L',
@@ -246,6 +337,10 @@ export const backpacks: BackpackSeedItem[] = [
     frameType: 'internal',
     gender: 'unisex',
     notes: 'Day hiking pack. Can also work for 1-2 night UL trips.',
+    whereToBuy: [
+      { retailer: 'Macpac', url: 'https://www.macpac.com.au/backpacks-bags/outdoor-adventure/hiking', priceCents: 22900, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
 
   // ── Kathmandu ────────────────────────────────────────────────────────────────
@@ -261,6 +356,10 @@ export const backpacks: BackpackSeedItem[] = [
     frameType: 'internal',
     gender: 'unisex',
     notes: 'ISPO 2025 award winner. 100% recycled nylon. Roll top. Customisable with badges. Day hike / travel.',
+    whereToBuy: [
+      { retailer: 'Kathmandu', url: 'https://www.kathmandu.com.au/products/trailhead-pack-20l-black', priceCents: 19999, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Kathmandu Trailhead 38L',
@@ -274,6 +373,10 @@ export const backpacks: BackpackSeedItem[] = [
     frameType: 'internal',
     gender: 'unisex',
     notes: 'Mid-size hiking pack. 100% recycled nylon. Hydration-ready. Stowaway hip belt.',
+    whereToBuy: [
+      { retailer: 'Kathmandu', url: 'https://www.kathmandu.com.au/collections/hiking-packs', priceCents: 27999, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Kathmandu Ampere 65L',
@@ -287,6 +390,10 @@ export const backpacks: BackpackSeedItem[] = [
     frameType: 'internal',
     gender: 'unisex',
     notes: 'Extended multi-day. Adjustable back length. Popular AU expedition pack.',
+    whereToBuy: [
+      { retailer: 'Kathmandu', url: 'https://www.kathmandu.com.au/collections/hiking-packs', priceCents: 34999, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
 
   // ── Zorali ────────────────────────────────────────────────────────────────────
@@ -302,6 +409,10 @@ export const backpacks: BackpackSeedItem[] = [
     frameType: 'internal',
     gender: 'unisex',
     notes: 'Roll-top + zip top. 8 pockets. Removable waistband. Padded laptop pouch. Sustainability-focused.',
+    whereToBuy: [
+      { retailer: 'Zorali', url: 'https://www.zorali.com/products/escapade-backpack-daintree', priceCents: 0, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
 
   // ── Sea to Summit ────────────────────────────────────────────────────────────
@@ -317,6 +428,11 @@ export const backpacks: BackpackSeedItem[] = [
     frameType: 'internal',
     gender: 'womens',
     notes: "Women's specific fit. Frameless option available. AU-designed.",
+    whereToBuy: [
+      { retailer: 'Sea to Summit', url: 'https://seatosummit.com.au/collections/bags-and-packs', priceCents: 34999, currency: 'AUD' },
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/sea-to-summit-ajna-35', priceCents: 35999, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Sea to Summit Metric 25L',
@@ -330,6 +446,11 @@ export const backpacks: BackpackSeedItem[] = [
     frameType: 'internal',
     gender: 'unisex',
     notes: 'Lightweight day / overnight pack. Minimalist design.',
+    whereToBuy: [
+      { retailer: 'Sea to Summit', url: 'https://seatosummit.com.au/collections/bags-and-packs', priceCents: 22999, currency: 'AUD' },
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/sea-to-summit-metric-25', priceCents: 23499, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
 
   // ── Decathlon (Forclaz) ───────────────────────────────────────────────────────
@@ -345,6 +466,10 @@ export const backpacks: BackpackSeedItem[] = [
     frameType: 'internal',
     gender: 'unisex',
     notes: 'Under 1kg for 50L. Modular frame. Best budget ultralight-capable pack.',
+    whereToBuy: [
+      { retailer: 'Decathlon', url: 'https://www.decathlon.com.au/p/mt900-symbium-backpack-50l/_/R-p-337270', priceCents: 29999, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Forclaz Trek 100 Easyfit 40L',
@@ -358,6 +483,10 @@ export const backpacks: BackpackSeedItem[] = [
     frameType: 'internal',
     gender: 'unisex',
     notes: 'Extremely affordable. Great beginner pack. Good value at Decathlon.',
+    whereToBuy: [
+      { retailer: 'Decathlon', url: 'https://www.decathlon.com.au/p/trek-100-40l-easy-fit-backpack/_/R-p-137049', priceCents: 9999, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Forclaz Trek 900 60L',
@@ -371,6 +500,10 @@ export const backpacks: BackpackSeedItem[] = [
     frameType: 'internal',
     gender: 'unisex',
     notes: 'Budget multi-day. Good value AU option for beginners.',
+    whereToBuy: [
+      { retailer: 'Decathlon', url: 'https://www.decathlon.com.au/p/trek-900-60l-backpack/_/R-p-337272', priceCents: 19999, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
 
   // ── Naturehike ───────────────────────────────────────────────────────────────
@@ -386,6 +519,11 @@ export const backpacks: BackpackSeedItem[] = [
     frameType: 'internal',
     gender: 'unisex',
     notes: 'Budget mid-volume hiking pack. Popular in AU market.',
+    whereToBuy: [
+      { retailer: 'Naturehike', url: 'https://www.naturehike.com/collections/backpacks', priceCents: 14999, currency: 'AUD' },
+      { retailer: 'Amazon AU', url: 'https://www.amazon.com.au/s?k=naturehike+xc+50l', priceCents: 15499, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
 
   // ── Zpacks ────────────────────────────────────────────────────────────────────
@@ -401,6 +539,10 @@ export const backpacks: BackpackSeedItem[] = [
     frameType: 'semi-frame',
     gender: 'unisex',
     notes: 'Dyneema® CF. Carbon fibre arc frame. Under 500g. Ships to AU.',
+    whereToBuy: [
+      { retailer: 'Zpacks', url: 'https://zpacks.com/products/arc-blast-backpack', priceCents: 48900, currency: 'USD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Zpacks Arc Haul Ultra 60L',
@@ -414,6 +556,10 @@ export const backpacks: BackpackSeedItem[] = [
     frameType: 'semi-frame',
     gender: 'unisex',
     notes: 'Dyneema® CF. 60L. For heavier loads in an ultralight package. Ships to AU.',
+    whereToBuy: [
+      { retailer: 'Zpacks', url: 'https://zpacks.com/products/arc-haul-ultra-60l-backpack', priceCents: 54900, currency: 'USD' },
+    ],
+    imageUrls: [],
   },
 
   // ── Aarn (NZ brand, sold at backpackinglight.com.au) ─────────────────────────
@@ -429,6 +575,11 @@ export const backpacks: BackpackSeedItem[] = [
     frameType: 'internal',
     gender: 'unisex',
     notes: 'NZ-designed balance pockets system. Weight carried at front and back. Unusual but very comfortable.',
+    whereToBuy: [
+      { retailer: 'Backpacking Light', url: 'https://www.backpackinglight.com.au/collections/hiking-packs/aarn', priceCents: 59900, currency: 'AUD' },
+      { retailer: 'Ultralight Gear', url: 'https://www.ultralightgear.com.au/aarn-featherlite-freedom', priceCents: 61500, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Aarn Natural Balance 50L',
@@ -442,6 +593,11 @@ export const backpacks: BackpackSeedItem[] = [
     frameType: 'internal',
     gender: 'unisex',
     notes: 'Front pockets for balanced load. Popular with AU long-distance hikers.',
+    whereToBuy: [
+      { retailer: 'Backpacking Light', url: 'https://www.backpackinglight.com.au/collections/hiking-packs/aarn', priceCents: 69900, currency: 'AUD' },
+      { retailer: 'Ultralight Gear', url: 'https://www.ultralightgear.com.au/aarn-natural-balance-50', priceCents: 71500, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
 
   // ── Paddy Pallin (curated specialty packs) ────────────────────────────────────
@@ -457,6 +613,12 @@ export const backpacks: BackpackSeedItem[] = [
     frameType: 'internal',
     gender: 'unisex',
     notes: '60L effective (50+10). Aircontact system. Extensible collar. Sold at Paddy Pallin.',
+    whereToBuy: [
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/equipment/packs/hiking-packs.html', priceCents: 44900, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/deuter-aircontact-lite-50-10', priceCents: 45900, currency: 'AUD' },
+      { retailer: 'Bogong', url: 'https://www.bogong.com.au/deuter-aircontact-lite-50-10.html', priceCents: 46500, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Gregory Baltoro 65L',
@@ -470,6 +632,12 @@ export const backpacks: BackpackSeedItem[] = [
     frameType: 'internal',
     gender: 'mens',
     notes: 'Comfort-focused. ResponseAF suspension. For heavier loads.',
+    whereToBuy: [
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/equipment/packs/hiking-packs.html', priceCents: 59900, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/gregory-baltoro-65', priceCents: 61500, currency: 'AUD' },
+      { retailer: 'Bogong', url: 'https://www.bogong.com.au/gregory-baltoro-65.html', priceCents: 61900, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
   {
     name: 'Gregory Deva 60L',
@@ -483,5 +651,11 @@ export const backpacks: BackpackSeedItem[] = [
     frameType: 'internal',
     gender: 'womens',
     notes: "Women's comfort pack. A-frame suspension. For heavy multi-day loads.",
+    whereToBuy: [
+      { retailer: 'Paddy Pallin', url: 'https://www.paddypallin.com.au/equipment/packs/hiking-packs.html', priceCents: 59900, currency: 'AUD' },
+      { retailer: 'Snowys', url: 'https://www.snowys.com.au/gregory-deva-60', priceCents: 61500, currency: 'AUD' },
+      { retailer: 'Bogong', url: 'https://www.bogong.com.au/gregory-deva-60.html', priceCents: 61900, currency: 'AUD' },
+    ],
+    imageUrls: [],
   },
 ];
