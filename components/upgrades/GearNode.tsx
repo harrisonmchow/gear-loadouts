@@ -20,7 +20,7 @@ function GearNodeComponent({ data }: NodeProps) {
   const { weightUnit } = usePreferences();
 
   return (
-    <div className="relative">
+    <div className="relative cursor-pointer">
       <Handle type="target" position={Position.Left} className="!bg-primary" />
       <Card
         className={cn(

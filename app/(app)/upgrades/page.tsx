@@ -1,14 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useUpgradeGraph } from "@/hooks/use-upgrades";
 import { UpgradeGraphView } from "@/components/upgrades/UpgradeGraph";
+import { ItemDetailSheet } from "@/components/upgrades/ItemDetailSheet";
+import { CompareItemPicker } from "@/components/upgrades/CompareItemPicker";
+import { GearCompareModal } from "@/components/shared/GearCompareModal";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
+import type { GearItemWithCategory } from "@/types";
 import type { UserPreferences } from "@/types";
 
 const CATEGORIES = [
-  { name: "all", label: "All" },
   { name: "tent", label: "Shelter" },
   { name: "sleeping_bag", label: "Sleeping Bags" },
   { name: "sleeping_pad", label: "Sleeping Pads" },
@@ -17,8 +20,45 @@ const CATEGORIES = [
 
 export default function UpgradesPage() {
   const { data, isLoading } = useUpgradeGraph();
-  const [category, setCategory] = useState("all");
+  const [category, setCategory] = useState("tent");
   const [preferences] = useState<UserPreferences>({});
+
+  // Detail sheet state
+  const [selectedItem, setSelectedItem] = useState<GearItemWithCategory | null>(
+    null
+  );
+
+  // Compare flow state
+  const [compareItemA, setCompareItemA] =
+    useState<GearItemWithCategory | null>(null);
+  const [showPicker, setShowPicker] = useState(false);
+  const [compareItemB, setCompareItemB] =
+    useState<GearItemWithCategory | null>(null);
+  const [showCompare, setShowCompare] = useState(false);
+
+  // Items in the current category (for compare picker)
+  const categoryItems = useMemo(() => {
+    if (!data) return [];
+    return data.items.filter((item) => item.category.name === category);
+  }, [data, category]);
+
+  // Picker items: same category, excluding the item being compared
+  const pickerItems = useMemo(() => {
+    if (!compareItemA) return categoryItems;
+    return categoryItems.filter((item) => item.id !== compareItemA.id);
+  }, [categoryItems, compareItemA]);
+
+  const handleCompare = (item: GearItemWithCategory) => {
+    setCompareItemA(item);
+    setSelectedItem(null);
+    setShowPicker(true);
+  };
+
+  const handlePickerSelect = (item: GearItemWithCategory) => {
+    setCompareItemB(item);
+    setShowPicker(false);
+    setShowCompare(true);
+  };
 
   if (isLoading) {
     return (
@@ -53,7 +93,8 @@ export default function UpgradesPage() {
         items={data.items}
         edges={data.edges}
         preferences={preferences}
-        categoryFilter={category === "all" ? undefined : category}
+        categoryFilter={category}
+        onNodeClick={setSelectedItem}
       />
 
       <div className="flex gap-4 text-xs text-muted-foreground">
@@ -70,6 +111,32 @@ export default function UpgradesPage() {
           <span className="h-2 w-4 rounded bg-purple-500" /> Similar
         </span>
       </div>
+
+      {/* Item detail sheet */}
+      <ItemDetailSheet
+        item={selectedItem}
+        open={!!selectedItem}
+        onOpenChange={(open) => {
+          if (!open) setSelectedItem(null);
+        }}
+        onCompare={handleCompare}
+      />
+
+      {/* Compare item picker */}
+      <CompareItemPicker
+        open={showPicker}
+        onOpenChange={setShowPicker}
+        items={pickerItems}
+        onSelect={handlePickerSelect}
+      />
+
+      {/* Compare modal */}
+      <GearCompareModal
+        open={showCompare}
+        onOpenChange={setShowCompare}
+        itemA={compareItemA}
+        itemB={compareItemB}
+      />
     </div>
   );
 }

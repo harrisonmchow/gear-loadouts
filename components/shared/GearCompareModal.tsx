@@ -10,6 +10,8 @@ import { Badge } from "@/components/ui/badge";
 import { formatWeight, formatPrice } from "@/lib/utils";
 import { usePreferences } from "@/stores/preferences";
 import { ExternalReviewsList } from "./ExternalReviewsList";
+import { GearRadarChart } from "@/components/upgrades/GearRadarChart";
+import { generateMockRatings } from "@/lib/mock-ratings";
 import type { GearItemWithCategory } from "@/types";
 
 interface GearCompareModalProps {
@@ -89,6 +91,26 @@ export function GearCompareModal({
                 <div>{String(specsB[key] ?? "—")}</div>
               </div>
             ))}
+        </div>
+
+        {/* Rating comparison radar chart */}
+        <div className="border-t pt-4">
+          <h4 className="text-sm font-medium mb-3">Rating Comparison</h4>
+          <GearRadarChart
+            items={[
+              {
+                name: itemA.name,
+                ratings: generateMockRatings(itemA),
+                color: "#68b0ab",
+              },
+              {
+                name: itemB.name,
+                ratings: generateMockRatings(itemB),
+                color: "#b0686d",
+              },
+            ]}
+            fields={itemA.category.ratingFields as string[]}
+          />
         </div>
 
         {/* External reviews */}

@@ -299,20 +299,18 @@ async function seedUpgradeEdges() {
       continue;
     }
 
-    const existing = await prisma.upgradeEdge.findUnique({
+    await prisma.upgradeEdge.upsert({
       where: { fromId_toId: { fromId: fromItem.id, toId: toItem.id } },
-    });
-
-    if (existing) {
-      skipped++;
-      continue;
-    }
-
-    await prisma.upgradeEdge.create({
-      data: {
+      update: {
+        edgeType: edge.type,
+        path: edge.path ?? [],
+        notes: edge.notes ?? null,
+      },
+      create: {
         fromId: fromItem.id,
         toId: toItem.id,
         edgeType: edge.type,
+        path: edge.path ?? [],
         notes: edge.notes ?? null,
       },
     });

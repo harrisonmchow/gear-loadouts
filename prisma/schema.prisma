@@ -113,6 +113,7 @@ model UpgradeEdge {
   from     GearItem @relation("from", fields: [fromId], references: [id])
   to       GearItem @relation("to", fields: [toId], references: [id])
   edgeType String
+  path     String[] @default([])
   notes    String?
 
   @@unique([fromId, toId])

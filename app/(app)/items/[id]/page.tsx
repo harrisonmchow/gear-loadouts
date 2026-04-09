@@ -1,6 +1,6 @@
 "use client";
 
-import { use } from "react";
+import { use, useState, useMemo } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -12,6 +12,10 @@ import { usePreferences } from "@/stores/preferences";
 import { useAddToWatchlist, useWatchlist } from "@/hooks/use-marketplace";
 import { useUserGear, useAddUserGear, useUpdateUserGear } from "@/hooks/use-profile";
 import { ReviewForm } from "@/components/shared/ReviewForm";
+import { GearRadarChart } from "@/components/upgrades/GearRadarChart";
+import { CompareItemPicker } from "@/components/upgrades/CompareItemPicker";
+import { GearCompareModal } from "@/components/shared/GearCompareModal";
+import { generateMockRatings } from "@/lib/mock-ratings";
 import { useSession } from "next-auth/react";
 import {
   Eye,
@@ -20,6 +24,7 @@ import {
   ShoppingBag,
   ExternalLink,
   ImageOff,
+  ArrowLeftRight,
 } from "lucide-react";
 import type { GearItemWithCategory, ReviewWithUser } from "@/types";
 
@@ -47,6 +52,18 @@ function useGearItem(id: string) {
   });
 }
 
+function useCategoryItems(categoryName: string | undefined) {
+  return useQuery<GearItemWithCategory[]>({
+    queryKey: ["gear-items", categoryName],
+    queryFn: async () => {
+      const res = await fetch(`/api/gear?category=${categoryName}`);
+      if (!res.ok) throw new Error("Failed to fetch category items");
+      return res.json();
+    },
+    enabled: !!categoryName,
+  });
+}
+
 export default function ItemDetailPage({
   params,
 }: {
@@ -62,6 +79,17 @@ export default function ItemDetailPage({
   const { data: userGear } = useUserGear();
   const addUserGear = useAddUserGear();
   const updateUserGear = useUpdateUserGear();
+
+  // Compare flow state
+  const [showPicker, setShowPicker] = useState(false);
+  const [compareItem, setCompareItem] = useState<GearItemWithCategory | null>(null);
+  const [showCompare, setShowCompare] = useState(false);
+
+  const { data: categoryItems } = useCategoryItems(item?.category.name);
+  const pickerItems = useMemo(
+    () => (categoryItems ?? []).filter((i) => i.id !== id),
+    [categoryItems, id]
+  );
 
   const isOnWatchlist = watchlist?.some((w) => w.gearId === id);
   const ownedEntry = userGear?.find((g) => g.gearId === id);
@@ -293,6 +321,53 @@ export default function ItemDetailPage({
           </CardContent>
         </Card>
       )}
+
+      {/* Community Ratings & Compare */}
+      <Card>
+        <CardContent className="p-4">
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-lg font-semibold">Community Ratings</h2>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setShowPicker(true)}
+            >
+              <ArrowLeftRight className="mr-1.5 h-4 w-4" />
+              Compare
+            </Button>
+          </div>
+          <GearRadarChart
+            items={[
+              {
+                name: item.name,
+                ratings: generateMockRatings(item),
+                color: "#68b0ab",
+              },
+            ]}
+            fields={ratingFields}
+          />
+        </CardContent>
+      </Card>
+
+      {/* Compare item picker */}
+      <CompareItemPicker
+        open={showPicker}
+        onOpenChange={setShowPicker}
+        items={pickerItems}
+        onSelect={(selected) => {
+          setCompareItem(selected);
+          setShowPicker(false);
+          setShowCompare(true);
+        }}
+      />
+
+      {/* Compare modal */}
+      <GearCompareModal
+        open={showCompare}
+        onOpenChange={setShowCompare}
+        itemA={item}
+        itemB={compareItem}
+      />
 
       {/* Reviews */}
       <div>
