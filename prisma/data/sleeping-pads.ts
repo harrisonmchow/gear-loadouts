@@ -3,7 +3,7 @@
 // zorali.com, altongoods.com, decathlon.com.au, naturehike.com, nemoequipment.com
 // Currency: AUD unless noted. weightGrams = packed weight.
 
-import type { WhereToBuyEntry } from './water-filtration';
+import type { WhereToBuyEntry } from './shared';
 
 export interface SleepingPadSeedItem {
   name: string;

@@ -14,7 +14,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAllGearSearch } from "@/hooks/use-loadout";
-import { formatWeight, formatPrice } from "@/lib/utils";
+import { formatWeight, formatPrice, cn } from "@/lib/utils";
+import { getGearCategoryMeta } from "@/lib/gear-categories";
 import { usePreferences } from "@/stores/preferences";
 
 const CATEGORIES = [
@@ -24,8 +25,10 @@ const CATEGORIES = [
   { value: "sleeping_pad", label: "Sleeping Pad" },
   { value: "backpack", label: "Backpack" },
   { value: "pillow", label: "Pillow" },
-  { value: "cook_system", label: "Cook System" },
-  { value: "water_filtration", label: "Water Filtration" },
+  { value: "cook_stove", label: "Stove" },
+  { value: "cook_pot", label: "Pot / Pan" },
+  { value: "water_filter", label: "Water Filter" },
+  { value: "water_container", label: "Water Container" },
 ];
 
 export default function ItemsPage() {
@@ -90,7 +93,13 @@ export default function ItemsPage() {
                         {item.brand}
                       </p>
                     </div>
-                    <Badge variant="secondary" className="ml-2 shrink-0 text-xs">
+                    <Badge
+                      variant="outline"
+                      className={cn(
+                        "ml-2 shrink-0 text-xs",
+                        getGearCategoryMeta(item.category.name).badgeClass
+                      )}
+                    >
                       {item.category.displayName}
                     </Badge>
                   </div>

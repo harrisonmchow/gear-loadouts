@@ -11,6 +11,7 @@ import {
 } from "@/hooks/use-loadout";
 import { LoadoutCard } from "@/components/loadout/LoadoutCard";
 import { LoadoutStats } from "@/components/loadout/LoadoutStats";
+import { WeightBreakdownChart } from "@/components/loadout/WeightBreakdownChart";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -174,6 +175,7 @@ export default function LoadoutPage() {
       </div>
 
       {loadout && <LoadoutStats items={loadout.items} />}
+      {loadout && <WeightBreakdownChart items={loadout.items} />}
       {loadout && <LoadoutCard loadout={loadout} />}
     </div>
   );

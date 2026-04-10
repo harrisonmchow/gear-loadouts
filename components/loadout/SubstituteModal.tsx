@@ -17,14 +17,6 @@ import { usePreferences } from "@/stores/preferences";
 import { Check } from "lucide-react";
 import type { GearItemWithCategory } from "@/types";
 
-// Map loadout slot types to DB category names for search
-const SLOT_TO_CATEGORY: Record<string, string> = {
-  cook_stove: "cook_system",
-  cook_pot: "cook_system",
-  water_filter: "water_filtration",
-  water_container: "water_filtration",
-};
-
 interface SubstituteModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -42,8 +34,7 @@ export function SubstituteModal({
 }: SubstituteModalProps) {
   const [search, setSearch] = useState("");
   const { weightUnit } = usePreferences();
-  const searchCategory = SLOT_TO_CATEGORY[slotType] ?? slotType;
-  const { data: items, isLoading } = useGearSearch(searchCategory, search);
+  const { data: items, isLoading } = useGearSearch(slotType, search);
   const updateItem = useUpdateLoadoutItem(loadoutId);
 
   function handleSelect(item: GearItemWithCategory) {

@@ -5,7 +5,7 @@
 // Currency: AUD unless noted. priceCents = null if unavailable.
 // weightGrams = trail/minimum weight. inStock = false if listed as sold out.
 
-import type { WhereToBuyEntry } from './water-filtration';
+import type { WhereToBuyEntry } from './shared';
 
 export interface SleepingBagSeedItem {
   name: string;

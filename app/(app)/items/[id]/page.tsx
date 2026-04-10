@@ -7,7 +7,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Separator } from "@/components/ui/separator";
-import { formatWeight, formatPrice } from "@/lib/utils";
+import { formatWeight, formatPrice, cn } from "@/lib/utils";
+import { getGearCategoryMeta } from "@/lib/gear-categories";
 import { usePreferences } from "@/stores/preferences";
 import { useAddToWatchlist, useWatchlist } from "@/hooks/use-marketplace";
 import { useUserGear, useAddUserGear, useUpdateUserGear } from "@/hooks/use-profile";
@@ -149,7 +150,13 @@ export default function ItemDetailPage({
         <div>
           <h1 className="text-2xl font-bold">{item.name}</h1>
           <p className="text-lg text-muted-foreground">{item.brand}</p>
-          <Badge variant="secondary" className="mt-1">
+          <Badge
+            variant="outline"
+            className={cn(
+              "mt-1",
+              getGearCategoryMeta(item.category.name).badgeClass
+            )}
+          >
             {item.category.displayName}
           </Badge>
         </div>

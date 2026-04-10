@@ -4,7 +4,7 @@
 // seatosummit.com.au, osprey.com/au
 // Currency: AUD unless noted.
 
-import type { WhereToBuyEntry } from './water-filtration';
+import type { WhereToBuyEntry } from './shared';
 
 export interface BackpackSeedItem {
   name: string;

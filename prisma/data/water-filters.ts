@@ -1,11 +1,6 @@
-export interface WhereToBuyEntry {
-  retailer: string;
-  url: string;
-  priceCents: number;
-  currency: string;
-}
+import type { WhereToBuyEntry } from './shared';
 
-export interface WaterFiltrationSeedItem {
+export interface WaterFilterSeedItem {
   name: string;
   brand: string;
   weightGrams: number;
@@ -13,14 +8,14 @@ export interface WaterFiltrationSeedItem {
   currency: "AUD" | "USD";
   href: string;
   inStock: boolean;
-  type: "filter" | "purifier" | "chemical" | "container";
+  type: "filter" | "purifier" | "chemical";
   flowRate?: string;
   notes?: string;
   whereToBuy: WhereToBuyEntry[];
   imageUrls: string[];
 }
 
-export const waterFiltration: WaterFiltrationSeedItem[] = [
+export const waterFilters: WaterFilterSeedItem[] = [
   {
     name: "Sawyer Squeeze Water Filter",
     brand: "Sawyer",
@@ -86,38 +81,6 @@ export const waterFiltration: WaterFiltrationSeedItem[] = [
     notes: "Chlorine dioxide two-part drops. Treats 30 gallons. Good backup to filter. 15-min wait time.",
     whereToBuy: [
       { retailer: "Ultralight Hiker", url: "https://www.ultralighthiker.com.au/aquamira-drops.html", priceCents: 2495, currency: "AUD" },
-    ],
-    imageUrls: [],
-  },
-  {
-    name: "CNOC Vecto 3L Water Container",
-    brand: "CNOC",
-    weightGrams: 54,
-    priceCents: 3995,
-    currency: "AUD",
-    href: "https://www.ultralighthiker.com.au/cnoc-vecto-3l.html",
-    inStock: true,
-    type: "container",
-    notes: "3L dirty water bag. 42mm thread fits Sawyer filters. Slide-lock closure. 54g. BPA-free.",
-    whereToBuy: [
-      { retailer: "Ultralight Hiker", url: "https://www.ultralighthiker.com.au/cnoc-vecto-3l.html", priceCents: 3995, currency: "AUD" },
-      { retailer: "Backpacking Light", url: "https://www.backpackinglight.com.au/products/cnoc-vecto-3l", priceCents: 4195, currency: "AUD" },
-    ],
-    imageUrls: [],
-  },
-  {
-    name: "CNOC Vecto 2L Water Container",
-    brand: "CNOC",
-    weightGrams: 43,
-    priceCents: 3495,
-    currency: "AUD",
-    href: "https://www.ultralighthiker.com.au/cnoc-vecto-2l.html",
-    inStock: true,
-    type: "container",
-    notes: "2L dirty water bag. Same Sawyer-compatible thread as 3L. Lighter for shorter carries.",
-    whereToBuy: [
-      { retailer: "Ultralight Hiker", url: "https://www.ultralighthiker.com.au/cnoc-vecto-2l.html", priceCents: 3495, currency: "AUD" },
-      { retailer: "Backpacking Light", url: "https://www.backpackinglight.com.au/products/cnoc-vecto-2l", priceCents: 3695, currency: "AUD" },
     ],
     imageUrls: [],
   },

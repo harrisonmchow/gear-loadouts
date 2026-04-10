@@ -5,7 +5,7 @@
 // Currency: AUD unless noted. priceCents = null if price unavailable.
 // weightGrams = null if not listed. inStock = false if listed as sold out.
 
-import type { WhereToBuyEntry } from './water-filtration';
+import type { WhereToBuyEntry } from './shared';
 
 export interface TentSeedItem {
   name: string;

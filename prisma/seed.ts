@@ -8,8 +8,10 @@ import { sleepingBags } from './data/sleeping-bags';
 import { sleepingPads } from './data/sleeping-pads';
 import { backpacks } from './data/backpacks';
 import { pillows } from './data/pillows';
-import { cookSystems } from './data/cook-systems';
-import { waterFiltration } from './data/water-filtration';
+import { stoves } from './data/stoves';
+import { cookPots } from './data/cook-pots';
+import { waterFilters } from './data/water-filters';
+import { waterContainers } from './data/water-containers';
 import { allUpgradeEdges } from './data/upgrade-edges';
 import { externalReviewSources } from './data/external-review-sources';
 
@@ -49,16 +51,28 @@ const categories = [
     ratingFields: ['weight', 'packability', 'comfort', 'insulation'],
   },
   {
-    name: 'cook_system',
-    displayName: 'Cook System',
-    icon: '🍳',
+    name: 'cook_stove',
+    displayName: 'Stove',
+    icon: '🔥',
     ratingFields: ['weight', 'packability', 'boil_time', 'fuel_efficiency', 'durability'],
   },
   {
-    name: 'water_filtration',
-    displayName: 'Water Filtration',
+    name: 'cook_pot',
+    displayName: 'Pot / Pan',
+    icon: '🍳',
+    ratingFields: ['weight', 'packability', 'durability', 'heat_distribution', 'capacity'],
+  },
+  {
+    name: 'water_filter',
+    displayName: 'Water Filter',
     icon: '💧',
     ratingFields: ['weight', 'flow_rate', 'packability', 'durability', 'ease_of_use'],
+  },
+  {
+    name: 'water_container',
+    displayName: 'Water Container',
+    icon: '🫙',
+    ratingFields: ['weight', 'packability', 'durability', 'capacity', 'ease_of_use'],
   },
 ];
 
@@ -179,28 +193,45 @@ async function seedGearItems() {
         notes: p.notes,
       },
     })),
-    ...cookSystems.map((c) => ({
-      name: c.name,
-      brand: c.brand,
-      categoryName: 'cook_system',
-      weightGrams: c.weightGrams,
-      priceCents: c.priceCents,
-      currency: c.currency,
-      href: c.href,
-      inStock: c.inStock,
-      whereToBuy: c.whereToBuy ?? [],
-      imageUrls: c.imageUrls ?? [],
+    ...stoves.map((s) => ({
+      name: s.name,
+      brand: s.brand,
+      categoryName: 'cook_stove',
+      weightGrams: s.weightGrams,
+      priceCents: s.priceCents,
+      currency: s.currency,
+      href: s.href,
+      inStock: s.inStock,
+      whereToBuy: s.whereToBuy ?? [],
+      imageUrls: s.imageUrls ?? [],
       specs: {
-        type: c.type,
-        fuelType: c.fuelType,
-        volumeMl: c.volumeMl,
-        notes: c.notes,
+        type: s.type,
+        fuelType: s.fuelType,
+        volumeMl: s.volumeMl,
+        notes: s.notes,
       },
     })),
-    ...waterFiltration.map((w) => ({
+    ...cookPots.map((p) => ({
+      name: p.name,
+      brand: p.brand,
+      categoryName: 'cook_pot',
+      weightGrams: p.weightGrams,
+      priceCents: p.priceCents,
+      currency: p.currency,
+      href: p.href,
+      inStock: p.inStock,
+      whereToBuy: p.whereToBuy ?? [],
+      imageUrls: p.imageUrls ?? [],
+      specs: {
+        type: p.type,
+        volumeMl: p.volumeMl,
+        notes: p.notes,
+      },
+    })),
+    ...waterFilters.map((w) => ({
       name: w.name,
       brand: w.brand,
-      categoryName: 'water_filtration',
+      categoryName: 'water_filter',
       weightGrams: w.weightGrams,
       priceCents: w.priceCents,
       currency: w.currency,
@@ -212,6 +243,23 @@ async function seedGearItems() {
         type: w.type,
         flowRate: w.flowRate,
         notes: w.notes,
+      },
+    })),
+    ...waterContainers.map((c) => ({
+      name: c.name,
+      brand: c.brand,
+      categoryName: 'water_container',
+      weightGrams: c.weightGrams,
+      priceCents: c.priceCents,
+      currency: c.currency,
+      href: c.href,
+      inStock: c.inStock,
+      whereToBuy: c.whereToBuy ?? [],
+      imageUrls: c.imageUrls ?? [],
+      specs: {
+        type: c.type,
+        volumeMl: c.volumeMl,
+        notes: c.notes,
       },
     })),
   ];

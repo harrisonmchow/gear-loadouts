@@ -3,7 +3,7 @@
 // nemoequipment.com, zorali.com, altongoods.com, decathlon.com.au, naturehike.com
 // Currency: AUD unless noted.
 
-import type { WhereToBuyEntry } from './water-filtration';
+import type { WhereToBuyEntry } from './shared';
 
 export interface PillowSeedItem {
   name: string;
