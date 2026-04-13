@@ -17,6 +17,8 @@ import { useAllGearSearch } from "@/hooks/use-loadout";
 import { formatWeight, formatPrice, cn } from "@/lib/utils";
 import { getGearCategoryMeta } from "@/lib/gear-categories";
 import { usePreferences } from "@/stores/preferences";
+import { Trophy } from "lucide-react";
+import { ItemRequestForm } from "@/components/shared/ItemRequestForm";
 
 const CATEGORIES = [
   { value: "all", label: "All Categories" },
@@ -103,6 +105,14 @@ export default function ItemsPage() {
                       {item.category.displayName}
                     </Badge>
                   </div>
+                  {item.award && (
+                    <div className="mt-2">
+                      <Badge className="bg-amber-100 text-amber-800 border-amber-300 dark:bg-amber-900/30 dark:text-amber-400 dark:border-amber-700 text-xs">
+                        <Trophy className="mr-1 h-3 w-3" />
+                        {item.award}
+                      </Badge>
+                    </div>
+                  )}
                   <div className="mt-3 flex gap-4 text-sm text-muted-foreground">
                     <span>{formatWeight(item.weightGrams, weightUnit)}</span>
                     <span>{formatPrice(item.priceCents, item.currency)}</span>
@@ -113,6 +123,10 @@ export default function ItemsPage() {
           ))}
         </div>
       )}
+
+      <div className="flex justify-center pt-4 pb-2">
+        <ItemRequestForm />
+      </div>
     </div>
   );
 }

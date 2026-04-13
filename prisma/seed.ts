@@ -441,6 +441,62 @@ async function seedSiteDeals() {
   console.log(`✓ ${created} site-wide deals created.`);
 }
 
+// ── Award assignments ────────────────────────────────────────────────────────
+// Hard-coded awards: 3 per gear category. Item name → award label.
+
+const gearAwards: Record<string, string> = {
+  // Tents / Shelters
+  'Naturehike Cloud-Up 2': 'Best Value',
+  'Durston X-Mid Pro 1': 'Ultralight Favourite',
+  'Durston X-Mid 2': 'Best All Rounder',
+  // Sleeping Bags / Quilts
+  'Neve Gear Waratah Quilt -2°C': 'Best Value',
+  'Enlightened Equipment Enigma Quilt 20°F (-7°C)': 'Ultralight Favourite',
+  'Sea to Summit Spark SpII Down Sleeping Bag 1°C': 'Best All Rounder',
+  // Sleeping Pads
+  'Alton Ultralight Insulated Sleeping Mat R4': 'Best Value',
+  'NEMO Tensor Elite Ultralight Sleeping Mat': 'Ultralight Favourite',
+  'NEMO Tensor Insulated Sleeping Mat Regular Wide': 'Best All Rounder',
+  // Backpacks
+  'Gossamer Gear Gorilla 40L': 'Best Value',
+  'Zpacks Arc Blast 55L': 'Ultralight Favourite',
+  'Osprey Exos 58': 'Best All Rounder',
+  // Pillows
+  'Alton Ultralight Camping Pillow': 'Best Value',
+  'Exped AirPillow UL M': 'Ultralight Favourite',
+  'Sea to Summit Aeros Premium Pillow Regular': 'Best All Rounder',
+  // Stoves
+  'BRS-3000T Ultralight Stove': 'Best Value',
+  'MSR PocketRocket 2': 'Ultralight Favourite',
+  'Soto WindMaster': 'Best All Rounder',
+  // Cook Pots
+  'TOAKS Titanium 550ml Pot': 'Best Value',
+  'TOAKS Titanium 750ml Pot': 'Ultralight Favourite',
+  'MSR Trail Mini Solo Cook Set': 'Best All Rounder',
+  // Water Filters
+  'Sawyer Squeeze Water Filter': 'Best Value',
+  'Sawyer Micro Squeeze': 'Ultralight Favourite',
+  'Katadyn BeFree 1.0L': 'Best All Rounder',
+  // Water Containers
+  'CNOC Vecto 2L Water Container': 'Best Value',
+  'CNOC Vecto 3L Water Container': 'Best All Rounder',
+};
+
+async function seedAwards() {
+  console.log('Seeding gear awards...');
+  let updated = 0;
+
+  for (const [itemName, award] of Object.entries(gearAwards)) {
+    const result = await prisma.gearItem.updateMany({
+      where: { name: itemName },
+      data: { award },
+    });
+    if (result.count > 0) updated++;
+  }
+
+  console.log(`✓ ${updated} gear awards assigned.`);
+}
+
 // ── Main ─────────────────────────────────────────────────────────────────────
 
 async function main() {
@@ -450,6 +506,7 @@ async function main() {
     await seedUpgradeEdges();
     await seedExternalReviewSources();
     await seedSiteDeals();
+    await seedAwards();
     console.log('\n✅ Seed complete.');
   } catch (err) {
     console.error('Seed failed:', err);

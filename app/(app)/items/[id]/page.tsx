@@ -10,7 +10,17 @@ import { Separator } from "@/components/ui/separator";
 import { formatWeight, formatPrice, cn } from "@/lib/utils";
 import { getGearCategoryMeta } from "@/lib/gear-categories";
 import { usePreferences } from "@/stores/preferences";
-import { useAddToWatchlist, useWatchlist } from "@/hooks/use-marketplace";
+import { useAddToWatchlist, useRemoveFromWatchlist, useWatchlist } from "@/hooks/use-marketplace";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { useUserGear, useAddUserGear, useUpdateUserGear } from "@/hooks/use-profile";
 import { ReviewForm } from "@/components/shared/ReviewForm";
 import { GearRadarChart } from "@/components/upgrades/GearRadarChart";
@@ -26,6 +36,7 @@ import {
   ExternalLink,
   ImageOff,
   ArrowLeftRight,
+  Trophy,
 } from "lucide-react";
 import type { GearItemWithCategory, ReviewWithUser } from "@/types";
 
@@ -77,6 +88,8 @@ export default function ItemDetailPage({
   const { weightUnit } = usePreferences();
   const { data: watchlist } = useWatchlist();
   const addToWatchlist = useAddToWatchlist();
+  const removeFromWatchlist = useRemoveFromWatchlist();
+  const [showUnwatchConfirm, setShowUnwatchConfirm] = useState(false);
   const { data: userGear } = useUserGear();
   const addUserGear = useAddUserGear();
   const updateUserGear = useUpdateUserGear();
@@ -92,7 +105,8 @@ export default function ItemDetailPage({
     [categoryItems, id]
   );
 
-  const isOnWatchlist = watchlist?.some((w) => w.gearId === id);
+  const watchlistEntry = watchlist?.find((w) => w.gearId === id);
+  const isOnWatchlist = !!watchlistEntry;
   const ownedEntry = userGear?.find((g) => g.gearId === id);
   const isOwned = ownedEntry?.status === "owned";
 
@@ -150,15 +164,22 @@ export default function ItemDetailPage({
         <div>
           <h1 className="text-2xl font-bold">{item.name}</h1>
           <p className="text-lg text-muted-foreground">{item.brand}</p>
-          <Badge
-            variant="outline"
-            className={cn(
-              "mt-1",
-              getGearCategoryMeta(item.category.name).badgeClass
+          <div className="mt-1 flex flex-wrap gap-2">
+            <Badge
+              variant="outline"
+              className={cn(
+                getGearCategoryMeta(item.category.name).badgeClass
+              )}
+            >
+              {item.category.displayName}
+            </Badge>
+            {item.award && (
+              <Badge className="bg-amber-100 text-amber-800 border-amber-300 dark:bg-amber-900/30 dark:text-amber-400 dark:border-amber-700">
+                <Trophy className="mr-1 h-3 w-3" />
+                {item.award}
+              </Badge>
             )}
-          >
-            {item.category.displayName}
-          </Badge>
+          </div>
         </div>
 
         <div className="flex gap-2">
@@ -206,11 +227,13 @@ export default function ItemDetailPage({
             variant={isOnWatchlist ? "secondary" : "outline"}
             size="sm"
             onClick={() => {
-              if (!isOnWatchlist) {
+              if (isOnWatchlist) {
+                setShowUnwatchConfirm(true);
+              } else {
                 addToWatchlist.mutate({ gearId: id });
               }
             }}
-            disabled={isOnWatchlist || addToWatchlist.isPending}
+            disabled={addToWatchlist.isPending || removeFromWatchlist.isPending}
           >
             {isOnWatchlist ? (
               <>
@@ -224,6 +247,29 @@ export default function ItemDetailPage({
               </>
             )}
           </Button>
+
+          <AlertDialog open={showUnwatchConfirm} onOpenChange={setShowUnwatchConfirm}>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Remove from Watchlist?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  You will no longer receive deal alerts for this item. You can always add it back later.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction
+                  onClick={() => {
+                    if (watchlistEntry) {
+                      removeFromWatchlist.mutate(watchlistEntry.id);
+                    }
+                  }}
+                >
+                  Remove
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </div>
       </div>
 

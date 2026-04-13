@@ -94,6 +94,7 @@ model GearItem {
   href           String?
   specs          Json?
   whereToBuy     Json?           @default("[]")
+  award          String?
   isDiscontinued Boolean         @default(false)
   createdAt      DateTime        @default(now())
   reviews        Review[]
