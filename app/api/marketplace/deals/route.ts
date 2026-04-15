@@ -1,33 +1,17 @@
-import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { withErrorHandling } from "@server/middleware/with-error-handling";
+import { successResponse } from "@server/lib/api-response";
+import { getDeals } from "@server/services/marketplace.service";
 
-export async function GET(request: Request) {
+export const GET = withErrorHandling(async (request) => {
   const url = new URL(request.url);
   const category = url.searchParams.get("category");
   const retailer = url.searchParams.get("retailer");
   const minDiscount = url.searchParams.get("minDiscount");
 
-  // Build where clause — category filter only applies to item deals
-  const where: Record<string, unknown> = { isActive: true };
-
-  if (retailer) where.retailerName = retailer;
-  if (minDiscount) where.discountPct = { gte: parseInt(minDiscount) };
-
-  if (category) {
-    // When filtering by category, only show item deals for that category
-    // plus all site-wide deals
-    where.OR = [
-      { gear: { category: { name: category } } },
-      { gearId: null },
-    ];
-  }
-
-  const deals = await prisma.deal.findMany({
-    where,
-    include: { gear: { include: { category: true } } },
-    orderBy: { foundAt: "desc" },
-    take: 50,
-  });
-
-  return NextResponse.json(deals);
-}
+  const deals = await getDeals(category, retailer, minDiscount);
+  return successResponse(
+    deals,
+    200,
+    "public, s-maxage=120, stale-while-revalidate=300"
+  );
+});

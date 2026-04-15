@@ -1,6 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import type { z } from "zod";
+import { gearRequestSchema } from "@/lib/validators";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -34,15 +38,40 @@ const CATEGORIES = [
   { value: "water_container", label: "Water Container" },
 ];
 
+type GearRequestValues = z.infer<typeof gearRequestSchema>;
+
 export function ItemRequestForm() {
   const [open, setOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [name, setName] = useState("");
-  const [category, setCategory] = useState("");
-  const [link, setLink] = useState("");
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    reset,
+    setError,
+    formState: { errors, isSubmitting },
+  } = useForm<GearRequestValues>({
+    resolver: zodResolver(gearRequestSchema),
+    defaultValues: { name: "", category: "", link: "" },
+  });
+
+  const category = watch("category");
+
+  async function onSubmit(data: GearRequestValues) {
+    const res = await fetch("/api/gear/request", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    if (!res.ok) {
+      const json = await res.json();
+      setError("root", { message: json.error || "Failed to submit request" });
+      return;
+    }
+
     setSubmitted(true);
   }
 
@@ -51,9 +80,7 @@ export function ItemRequestForm() {
     if (!value) {
       setTimeout(() => {
         setSubmitted(false);
-        setName("");
-        setCategory("");
-        setLink("");
+        reset();
       }, 200);
     }
   }
@@ -91,20 +118,26 @@ export function ItemRequestForm() {
                 Submit a gear item you&apos;d like added to the database.
               </DialogDescription>
             </DialogHeader>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="item-name">Item name</Label>
                 <Input
                   id="item-name"
                   placeholder="e.g. Nemo Tensor Insulated"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required
+                  {...register("name")}
                 />
+                {errors.name && (
+                  <p className="text-sm text-destructive">{errors.name.message}</p>
+                )}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="item-category">Category</Label>
-                <Select value={category} onValueChange={setCategory} required>
+                <Select
+                  value={category}
+                  onValueChange={(v) =>
+                    setValue("category", v, { shouldValidate: true })
+                  }
+                >
                   <SelectTrigger id="item-category">
                     <SelectValue placeholder="Select a category" />
                   </SelectTrigger>
@@ -116,6 +149,9 @@ export function ItemRequestForm() {
                     ))}
                   </SelectContent>
                 </Select>
+                {errors.category && (
+                  <p className="text-sm text-destructive">{errors.category.message}</p>
+                )}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="item-link">Link</Label>
@@ -123,13 +159,19 @@ export function ItemRequestForm() {
                   id="item-link"
                   type="url"
                   placeholder="https://..."
-                  value={link}
-                  onChange={(e) => setLink(e.target.value)}
-                  required
+                  {...register("link")}
                 />
+                {errors.link && (
+                  <p className="text-sm text-destructive">{errors.link.message}</p>
+                )}
               </div>
+              {errors.root && (
+                <p className="text-sm text-destructive">{errors.root.message}</p>
+              )}
               <DialogFooter>
-                <Button type="submit">Submit request</Button>
+                <Button type="submit" disabled={isSubmitting}>
+                  {isSubmitting ? "Submitting..." : "Submit request"}
+                </Button>
               </DialogFooter>
             </form>
           </>

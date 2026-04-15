@@ -1,29 +1,13 @@
-import { NextResponse } from "next/server";
-import { auth } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
+import { withErrorHandling } from "@server/middleware/with-error-handling";
+import { withAuthAndValidation } from "@server/middleware/with-auth-validation";
+import { successResponse } from "@server/lib/api-response";
+import { updateUserGear } from "@server/services/gear.service";
+import { updateUserGearSchema } from "@/lib/validators";
 
-export async function PATCH(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
-  const session = await auth();
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  const { id } = await params;
-  const body = await request.json();
-
-  const userGear = await prisma.userGear.findUnique({ where: { id } });
-  if (!userGear || userGear.userId !== session.user.id) {
-    return NextResponse.json({ error: "Not found" }, { status: 404 });
-  }
-
-  const updated = await prisma.userGear.update({
-    where: { id },
-    data: { status: body.status },
-    include: { gear: { include: { category: true } } },
-  });
-
-  return NextResponse.json(updated);
-}
+export const PATCH = withErrorHandling(
+  withAuthAndValidation(updateUserGearSchema, async (_req, { session, data, params }) => {
+    const { id } = await params;
+    const updated = await updateUserGear(session.user.id, id, data);
+    return successResponse(updated);
+  })
+);

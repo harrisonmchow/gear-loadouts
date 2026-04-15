@@ -1,50 +1,20 @@
-import { NextResponse } from "next/server";
-import { auth } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
+import { withErrorHandling } from "@server/middleware/with-error-handling";
+import { withAuth } from "@server/middleware/with-auth";
+import { successResponse } from "@server/lib/api-response";
+import { followUser, unfollowUser } from "@server/services/profile.service";
 
-export async function POST(
-  _request: Request,
-  { params }: { params: Promise<{ userId: string }> }
-) {
-  const session = await auth();
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+export const POST = withErrorHandling(
+  withAuth(async (_req, { session, params }) => {
+    const { userId } = await params;
+    const result = await followUser(session.user.id, userId);
+    return successResponse(result);
+  })
+);
 
-  const { userId } = await params;
-
-  if (userId === session.user.id) {
-    return NextResponse.json({ error: "Cannot follow yourself" }, { status: 400 });
-  }
-
-  await prisma.follow.upsert({
-    where: {
-      followerId_followingId: {
-        followerId: session.user.id,
-        followingId: userId,
-      },
-    },
-    update: {},
-    create: { followerId: session.user.id, followingId: userId },
-  });
-
-  return NextResponse.json({ success: true });
-}
-
-export async function DELETE(
-  _request: Request,
-  { params }: { params: Promise<{ userId: string }> }
-) {
-  const session = await auth();
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  const { userId } = await params;
-
-  await prisma.follow.deleteMany({
-    where: { followerId: session.user.id, followingId: userId },
-  });
-
-  return NextResponse.json({ success: true });
-}
+export const DELETE = withErrorHandling(
+  withAuth(async (_req, { session, params }) => {
+    const { userId } = await params;
+    const result = await unfollowUser(session.user.id, userId);
+    return successResponse(result);
+  })
+);

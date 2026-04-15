@@ -1,33 +1,15 @@
-import { NextResponse } from "next/server";
-import { auth } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
+import { withErrorHandling } from "@server/middleware/with-error-handling";
+import { withAuthAndValidation } from "@server/middleware/with-auth-validation";
+import { subscribeRateLimit } from "@server/middleware/rate-limit";
+import { successResponse } from "@server/lib/api-response";
+import { savePushSubscription } from "@server/services/notification.service";
+import { pushSubscriptionSchema } from "@/lib/validators";
 
-export async function POST(request: Request) {
-  const session = await auth();
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  const body = await request.json();
-  const { endpoint, p256dh, auth: authKey } = body;
-
-  if (!endpoint || !p256dh || !authKey) {
-    return NextResponse.json(
-      { error: "Missing subscription fields" },
-      { status: 400 }
-    );
-  }
-
-  await prisma.pushSubscription.upsert({
-    where: { userId: session.user.id },
-    update: { endpoint, p256dh, auth: authKey },
-    create: {
-      userId: session.user.id,
-      endpoint,
-      p256dh,
-      auth: authKey,
-    },
-  });
-
-  return NextResponse.json({ success: true });
-}
+export const POST = subscribeRateLimit(
+  withErrorHandling(
+    withAuthAndValidation(pushSubscriptionSchema, async (_req, { session, data }) => {
+      const result = await savePushSubscription(session.user.id, data);
+      return successResponse(result);
+    })
+  )
+);

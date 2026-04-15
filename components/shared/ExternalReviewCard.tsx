@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Youtube, Globe } from "lucide-react";
@@ -24,11 +25,15 @@ export function ExternalReviewCard({ review }: ExternalReviewCardProps) {
         >
           <div className="flex gap-3">
             {review.thumbnailUrl && (
-              <img
-                src={review.thumbnailUrl}
-                alt=""
-                className="h-16 w-28 shrink-0 rounded object-cover"
-              />
+              <div className="relative h-16 w-28 shrink-0 overflow-hidden rounded">
+                <Image
+                  src={review.thumbnailUrl}
+                  alt=""
+                  fill
+                  className="object-cover"
+                  sizes="112px"
+                />
+              </div>
             )}
             <div className="min-w-0 flex-1">
               <p className="line-clamp-2 text-sm font-medium leading-tight group-hover:underline">
