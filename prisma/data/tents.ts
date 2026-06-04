@@ -485,7 +485,7 @@ export const tents: TentSeedItem[] = [
   {
     name: 'Mont Moondance 2 FN',
     brand: 'Mont',
-    weightGrams: null,
+    weightGrams: 2200,
     priceCents: 74995,
     currency: 'AUD',
     href: 'https://ultralightgear.com.au/collections/tents-shelters/products/mont-moondance-2-fn',
@@ -503,7 +503,7 @@ export const tents: TentSeedItem[] = [
   {
     name: 'Mont Dragonfly Alpine 2-3P',
     brand: 'Mont',
-    weightGrams: null,
+    weightGrams: 2800,
     priceCents: 89995,
     currency: 'AUD',
     href: 'https://ultralightgear.com.au/collections/tents-shelters/products/mont-dragonfly-alpine-tent',
@@ -617,7 +617,7 @@ export const tents: TentSeedItem[] = [
   {
     name: 'SlingFin SplitWing UL Tarp',
     brand: 'SlingFin',
-    weightGrams: null,
+    weightGrams: 230,
     priceCents: 36900,
     currency: 'AUD',
     href: 'https://www.backpackinglight.com.au/products/slingfin-splitwing-ul-tarp',
@@ -820,7 +820,7 @@ export const tents: TentSeedItem[] = [
   {
     name: 'DD Hammocks Superlight Tarp Tent',
     brand: 'DD Hammocks',
-    weightGrams: null,
+    weightGrams: 460,
     priceCents: 33900,
     currency: 'AUD',
     href: 'https://www.backpackinglight.com.au/products/dd-hammocks-superlight-tarp-tent',

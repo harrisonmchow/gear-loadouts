@@ -46,20 +46,20 @@ export const externalReviewSources = [
     type: "website",
     channelId: null,
     feedUrl: "https://www.outdoorgearlab.com/feed",
-    avatarUrl: null,
+    avatarUrl: "https://www.outdoorgearlab.com/favicon.ico",
   },
   {
     name: "Switchback Travel",
     type: "website",
     channelId: null,
     feedUrl: "https://www.switchbacktravel.com/feed",
-    avatarUrl: null,
+    avatarUrl: "https://www.switchbacktravel.com/sites/default/files/favicon.ico",
   },
   {
     name: "HikeLighter",
     type: "website",
     channelId: null,
     feedUrl: "https://www.hikelighter.com/feed",
-    avatarUrl: null,
+    avatarUrl: "https://hikelighter.files.wordpress.com/2017/01/hikelighter-logo-print.png",
   },
 ];
