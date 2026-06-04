@@ -1,13 +1,21 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import dynamic from "next/dynamic";
 import { useUpgradeGraph } from "@/hooks/use-upgrades";
-import { UpgradeGraphView } from "@/components/upgrades/UpgradeGraph";
 import { ItemDetailSheet } from "@/components/upgrades/ItemDetailSheet";
 import { CompareItemPicker } from "@/components/upgrades/CompareItemPicker";
 import { GearCompareModal } from "@/components/shared/GearCompareModal";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
+
+const UpgradeGraphView = dynamic(
+  () => import("@/components/upgrades/UpgradeGraph").then((m) => m.UpgradeGraphView),
+  {
+    ssr: false,
+    loading: () => <Skeleton className="h-[600px] w-full" />,
+  }
+);
 import type { GearItemWithCategory } from "@/types";
 import type { UserPreferences } from "@/types";
 

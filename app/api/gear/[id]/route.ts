@@ -1,28 +1,9 @@
-import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { withErrorHandling } from "@server/middleware/with-error-handling";
+import { successResponse } from "@server/lib/api-response";
+import { getGearItem } from "@server/services/gear.service";
 
-export async function GET(
-  _request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export const GET = withErrorHandling(async (_request, { params }) => {
   const { id } = await params;
-
-  const item = await prisma.gearItem.findUnique({
-    where: { id },
-    include: {
-      category: true,
-      reviews: {
-        include: {
-          user: { select: { id: true, username: true, avatarUrl: true } },
-        },
-        orderBy: { createdAt: "desc" },
-      },
-    },
-  });
-
-  if (!item) {
-    return NextResponse.json({ error: "Not found" }, { status: 404 });
-  }
-
-  return NextResponse.json(item);
-}
+  const item = await getGearItem(id);
+  return successResponse(item, 200, "public, s-maxage=60, stale-while-revalidate=120");
+});

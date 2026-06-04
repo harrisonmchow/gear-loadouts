@@ -274,20 +274,22 @@ export const backpacks: BackpackSeedItem[] = [
   {
     name: 'Gossamer Gear Mariposa 60L',
     brand: 'Gossamer Gear',
-    weightGrams: 964,
-    priceCents: null,
-    currency: 'USD',
-    href: 'https://www.backpackinglight.com.au/collections/hiking-packs',
+    weightGrams: 968,
+    priceCents: 57495,
+    currency: 'AUD',
+    href: 'https://www.backpackinglight.com.au/products/gossamer-gear-mariposa-60-ultralight-backpack',
     inStock: true,
     volumeLitres: 60,
     frameType: 'semi-frame',
     gender: 'unisex',
-    notes: 'Under 1kg for 60L. Popular for longer multi-day trips. Ships to AU.',
+    notes: 'Under 1kg for 60L (Medium). PVT Frame+Belt system. Popular for longer multi-day trips.',
     whereToBuy: [
-      { retailer: 'Backpacking Light', url: 'https://www.backpackinglight.com.au/collections/hiking-packs', priceCents: 0, currency: 'USD' },
-      { retailer: 'Ultralight Gear', url: 'https://www.ultralightgear.com.au/gossamer-gear-mariposa', priceCents: 0, currency: 'AUD' },
+      { retailer: 'Backpacking Light', url: 'https://www.backpackinglight.com.au/products/gossamer-gear-mariposa-60-ultralight-backpack', priceCents: 57495, currency: 'AUD' },
     ],
-    imageUrls: [],
+    imageUrls: [
+      'https://cdn.shopify.com/s/files/1/0668/3112/2712/files/Mariposa60_TropicalMist_RF.jpg',
+      'https://cdn.shopify.com/s/files/1/0668/3112/2712/files/Mariposa60_BlackenedPearl_RF.jpg',
+    ],
   },
 
   // ── Macpac ───────────────────────────────────────────────────────────────────
@@ -400,8 +402,8 @@ export const backpacks: BackpackSeedItem[] = [
   {
     name: 'Zorali Escapade 30L',
     brand: 'Zorali',
-    weightGrams: null,
-    priceCents: null,
+    weightGrams: 850,
+    priceCents: 16000,
     currency: 'AUD',
     href: 'https://www.zorali.com/products/escapade-backpack-daintree',
     inStock: true,
@@ -410,9 +412,12 @@ export const backpacks: BackpackSeedItem[] = [
     gender: 'unisex',
     notes: 'Roll-top + zip top. 8 pockets. Removable waistband. Padded laptop pouch. Sustainability-focused.',
     whereToBuy: [
-      { retailer: 'Zorali', url: 'https://www.zorali.com/products/escapade-backpack-daintree', priceCents: 0, currency: 'AUD' },
+      { retailer: 'Zorali', url: 'https://www.zorali.com/products/escapade-backpack-daintree', priceCents: 16000, currency: 'AUD' },
     ],
-    imageUrls: [],
+    imageUrls: [
+      'https://cdn.shopify.com/s/files/1/0153/9751/9414/files/zorali3.jpg?v=1711653317',
+      'https://cdn.shopify.com/s/files/1/0153/9751/9414/files/EscapadeCallOutsArtboard1copy3.png?v=1746757714',
+    ],
   },
 
   // ── Sea to Summit ────────────────────────────────────────────────────────────

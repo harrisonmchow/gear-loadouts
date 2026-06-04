@@ -1,32 +1,21 @@
-import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { withErrorHandling } from "@server/middleware/with-error-handling";
+import { successResponse, errorResponse } from "@server/lib/api-response";
+import { getExternalReviews } from "@server/services/review.service";
 
-export async function GET(request: Request) {
+export const GET = withErrorHandling(async (request) => {
   const url = new URL(request.url);
   const gearId = url.searchParams.get("gearId");
-  const unmatched = url.searchParams.get("unmatched");
+  const unmatched = url.searchParams.get("unmatched") === "true";
 
-  if (unmatched === "true") {
-    const reviews = await prisma.externalReview.findMany({
-      where: { gearId: null },
-      include: { source: true },
-      orderBy: { publishedAt: "desc" },
-    });
-    return NextResponse.json(reviews);
+  const reviews = await getExternalReviews(gearId, unmatched);
+
+  if (reviews === null) {
+    return errorResponse("gearId or unmatched=true required", 400);
   }
 
-  if (!gearId) {
-    return NextResponse.json(
-      { error: "gearId or unmatched=true required" },
-      { status: 400 }
-    );
-  }
-
-  const reviews = await prisma.externalReview.findMany({
-    where: { gearId },
-    include: { source: true },
-    orderBy: { publishedAt: "desc" },
-  });
-
-  return NextResponse.json(reviews);
-}
+  return successResponse(
+    reviews,
+    200,
+    "public, s-maxage=60, stale-while-revalidate=120"
+  );
+});

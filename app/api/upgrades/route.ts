@@ -1,7 +1,8 @@
-import { NextResponse } from "next/server";
+import { withErrorHandling } from "@server/middleware/with-error-handling";
+import { successResponse } from "@server/lib/api-response";
 import { prisma } from "@/lib/prisma";
 
-export async function GET() {
+export const GET = withErrorHandling(async () => {
   const [items, edges] = await Promise.all([
     prisma.gearItem.findMany({
       include: { category: true },
@@ -15,5 +16,9 @@ export async function GET() {
     }),
   ]);
 
-  return NextResponse.json({ items, edges });
-}
+  return successResponse(
+    { items, edges },
+    200,
+    "public, s-maxage=300, stale-while-revalidate=600"
+  );
+});

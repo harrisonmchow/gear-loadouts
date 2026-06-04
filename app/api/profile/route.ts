@@ -1,24 +1,12 @@
-import { NextResponse } from "next/server";
-import { auth } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
+import { withErrorHandling } from "@server/middleware/with-error-handling";
+import { withAuthAndValidation } from "@server/middleware/with-auth-validation";
+import { successResponse } from "@server/lib/api-response";
+import { updateProfile } from "@server/services/profile.service";
+import { updateProfileSchema } from "@/lib/validators";
 
-export async function PATCH(request: Request) {
-  const session = await auth();
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  const body = await request.json();
-  const { bio, avatarUrl, preferences } = body;
-
-  const updated = await prisma.user.update({
-    where: { id: session.user.id },
-    data: {
-      ...(bio !== undefined && { bio }),
-      ...(avatarUrl !== undefined && { avatarUrl }),
-      ...(preferences !== undefined && { preferences }),
-    },
-  });
-
-  return NextResponse.json(updated);
-}
+export const PATCH = withErrorHandling(
+  withAuthAndValidation(updateProfileSchema, async (_req, { session, data }) => {
+    const updated = await updateProfile(session.user.id, data);
+    return successResponse(updated);
+  })
+);

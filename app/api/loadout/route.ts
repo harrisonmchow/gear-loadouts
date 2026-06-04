@@ -1,93 +1,32 @@
-import { NextResponse } from "next/server";
-import { auth } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
+import { withErrorHandling } from "@server/middleware/with-error-handling";
+import { withAuth } from "@server/middleware/with-auth";
+import { withAuthAndValidation } from "@server/middleware/with-auth-validation";
+import { successResponse } from "@server/lib/api-response";
+import {
+  getActiveLoadout,
+  getAllLoadouts,
+  createLoadout,
+} from "@server/services/loadout.service";
+import { createLoadoutSchema } from "@/lib/validators";
 
-export async function GET(request: Request) {
-  const session = await auth();
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+export const GET = withErrorHandling(
+  withAuth(async (request, { session }) => {
+    const url = new URL(request.url);
+    const all = url.searchParams.get("all");
 
-  const url = new URL(request.url);
-  const all = url.searchParams.get("all");
+    if (all) {
+      const loadouts = await getAllLoadouts(session.user.id);
+      return successResponse(loadouts);
+    }
 
-  if (all) {
-    const loadouts = await prisma.loadout.findMany({
-      where: { userId: session.user.id },
-      include: {
-        items: {
-          include: { gear: { include: { category: true } } },
-        },
-      },
-      orderBy: { createdAt: "desc" },
-    });
-    return NextResponse.json(loadouts);
-  }
+    const loadout = await getActiveLoadout(session.user.id);
+    return successResponse(loadout);
+  })
+);
 
-  let loadout = await prisma.loadout.findFirst({
-    where: { userId: session.user.id, isActive: true },
-    include: {
-      items: {
-        include: { gear: { include: { category: true } } },
-      },
-    },
-  });
-
-  if (!loadout) {
-    loadout = await prisma.loadout.create({
-      data: {
-        userId: session.user.id,
-        name: "My Loadout",
-        isActive: true,
-      },
-      include: {
-        items: {
-          include: { gear: { include: { category: true } } },
-        },
-      },
-    });
-  }
-
-  return NextResponse.json(loadout);
-}
-
-export async function POST(request: Request) {
-  const session = await auth();
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  const { name } = await request.json();
-
-  // Enforce max 3 loadouts
-  const count = await prisma.loadout.count({
-    where: { userId: session.user.id },
-  });
-  if (count >= 3) {
-    return NextResponse.json(
-      { error: "Maximum of 3 loadouts reached. Delete one first." },
-      { status: 400 }
-    );
-  }
-
-  // Deactivate current active loadout
-  await prisma.loadout.updateMany({
-    where: { userId: session.user.id, isActive: true },
-    data: { isActive: false },
-  });
-
-  const loadout = await prisma.loadout.create({
-    data: {
-      userId: session.user.id,
-      name: name || "New Loadout",
-      isActive: true,
-    },
-    include: {
-      items: {
-        include: { gear: { include: { category: true } } },
-      },
-    },
-  });
-
-  return NextResponse.json(loadout, { status: 201 });
-}
+export const POST = withErrorHandling(
+  withAuthAndValidation(createLoadoutSchema, async (_req, { session, data }) => {
+    const loadout = await createLoadout(session.user.id, data.name);
+    return successResponse(loadout, 201);
+  })
+);

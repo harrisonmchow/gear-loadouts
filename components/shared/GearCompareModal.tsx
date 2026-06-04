@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import {
   Dialog,
   DialogContent,
@@ -7,11 +8,20 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
 import { formatWeight, formatPrice } from "@/lib/utils";
 import { usePreferences } from "@/stores/preferences";
 import { ExternalReviewsList } from "./ExternalReviewsList";
-import { GearRadarChart } from "@/components/upgrades/GearRadarChart";
 import { generateMockRatings } from "@/lib/mock-ratings";
+
+const GearRadarChart = dynamic(
+  () =>
+    import("@/components/upgrades/GearRadarChart").then((m) => m.GearRadarChart),
+  {
+    ssr: false,
+    loading: () => <Skeleton className="h-[280px] w-full" />,
+  }
+);
 import type { GearItemWithCategory } from "@/types";
 
 interface GearCompareModalProps {

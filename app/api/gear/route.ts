@@ -1,28 +1,12 @@
-import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { withErrorHandling } from "@server/middleware/with-error-handling";
+import { successResponse } from "@server/lib/api-response";
+import { searchGear } from "@server/services/gear.service";
 
-export async function GET(request: Request) {
+export const GET = withErrorHandling(async (request) => {
   const url = new URL(request.url);
   const category = url.searchParams.get("category");
   const q = url.searchParams.get("q");
 
-  const items = await prisma.gearItem.findMany({
-    where: {
-      ...(category && {
-        category: { name: category },
-      }),
-      ...(q && {
-        OR: [
-          { name: { contains: q, mode: "insensitive" } },
-          { brand: { contains: q, mode: "insensitive" } },
-        ],
-      }),
-      isDiscontinued: false,
-    },
-    include: { category: true },
-    orderBy: [{ brand: "asc" }, { name: "asc" }],
-    take: 50,
-  });
-
-  return NextResponse.json(items);
-}
+  const items = await searchGear(category, q);
+  return successResponse(items, 200, "public, s-maxage=60, stale-while-revalidate=120");
+});

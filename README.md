@@ -64,36 +64,92 @@ A Next.js platform for backpackers to showcase gear loadouts, track stats, disco
 │   │   ├── upgrades/             # Upgrade path DAG
 │   │   ├── marketplace/          # Deal finder
 │   │   └── profile/              # User profile & public profiles
-│   └── api/                      # Route handlers
-│       ├── auth/                 # NextAuth endpoints
+│   └── api/                      # Route handlers (thin wrappers only)
+│       ├── auth/                 # NextAuth endpoints + signup
 │       ├── loadout/              # Loadout CRUD
-│       ├── gear/                 # Gear search & ownership
+│       ├── gear/                 # Gear search, ownership, requests
 │       ├── upgrades/             # Upgrade graph data
 │       ├── marketplace/          # Deal listings
 │       ├── watchlist/            # Watchlist management
 │       ├── notifications/        # Push subscription
 │       └── cron/                 # Scheduled deal checking
+├── server/                       # Backend service layer (separation of concerns)
+│   ├── services/                 # Business logic & DB access
+│   │   ├── auth.service.ts       # Signup logic
+│   │   ├── gear.service.ts       # Gear search, ownership
+│   │   ├── loadout.service.ts    # Loadout CRUD
+│   │   ├── review.service.ts     # Reviews + external review sync
+│   │   ├── marketplace.service.ts # Deals, watchlist, deal-check cron
+│   │   ├── profile.service.ts    # Profile, follow/unfollow
+│   │   ├── notification.service.ts # Push subscription storage
+│   │   └── gear-request.service.ts # User gear requests
+│   ├── middleware/               # Route handler middleware (HOF composition)
+│   │   ├── with-auth.ts          # Require authenticated session
+│   │   ├── with-validation.ts    # Zod schema validation + sanitization
+│   │   ├── with-error-handling.ts # Catch AppError and map to HTTP responses
+│   │   ├── with-cron-auth.ts     # Bearer token + Vercel cron header check
+│   │   └── rate-limit.ts         # In-memory sliding window rate limiter
+│   └── lib/
+│       ├── errors.ts             # AppError, NotFoundError, ForbiddenError, etc.
+│       ├── api-response.ts       # successResponse / errorResponse helpers
+│       └── sanitize.ts           # Strip HTML tags from string inputs
 ├── components/
+│   ├── items/                    # Item detail sub-components
 │   ├── nav/                      # Top navigation bar
 │   ├── loadout/                  # Loadout cards, gear slots, stats
 │   ├── upgrades/                 # React Flow graph, nodes, edges
 │   ├── marketplace/              # Deal cards, watchlist, price history
 │   ├── profile/                  # Profile header, gear collection, follows
 │   └── shared/                   # Gear compare modal, reviews, star rating
+├── hooks/
+│   ├── use-gear.ts               # useGearItem, useCategoryItems
+│   └── ...                       # Other data-fetching hooks
 ├── lib/
-│   ├── prisma.ts                 # Prisma client
-│   ├── auth.ts                   # Auth configuration
+│   ├── prisma.ts                 # Prisma client singleton
+│   ├── auth.ts                   # NextAuth configuration
+│   ├── validators.ts             # Zod schemas (used by routes + forms)
 │   ├── scrapers/                 # AU retailer scrapers
-│   ├── upgrade-graph.ts          # DAG logic & preference filtering
+│   ├── upgrade-graph.ts          # DAG layout & preference filtering
 │   ├── deal-detector.ts          # Deal detection logic
-│   └── push-notifications.ts     # Web push utilities
+│   └── push-notifications.ts    # Web push utilities
+├── middleware.ts                 # Next.js root middleware (auth + security)
 ├── prisma/
-│   └── schema.prisma             # Database schema
+│   └── schema.prisma             # Database schema with indexes
 ├── public/
 │   └── sw.js                     # Service worker for push notifications
 └── types/
     └── index.ts                  # Shared TypeScript types
 ```
+
+## Architecture: Adding a New API Endpoint
+
+All API routes follow a three-layer pattern:
+
+**1. Define a Zod validator** in `lib/validators.ts`:
+```ts
+export const mySchema = z.object({ field: z.string().min(1) });
+```
+
+**2. Implement business logic** in `server/services/my.service.ts`:
+```ts
+export async function doSomething(userId: string, data: z.infer<typeof mySchema>) {
+  // Prisma queries, domain rules, throw AppError subclasses on failure
+}
+```
+
+**3. Create a thin route handler** in `app/api/my-route/route.ts`:
+```ts
+export const POST = withErrorHandling(
+  withAuth(
+    withValidation(mySchema, async (_req, { session, data }) => {
+      const result = await doSomething(session.user.id, data);
+      return successResponse(result, 201);
+    })
+  )
+);
+```
+
+The middleware stack handles auth, validation, sanitization, and error mapping automatically. Route handlers contain no business logic.
 
 ## Getting Started
 

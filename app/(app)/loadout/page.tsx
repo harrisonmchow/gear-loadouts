@@ -9,10 +9,21 @@ import {
   useSwitchLoadout,
   useDeleteLoadout,
 } from "@/hooks/use-loadout";
+import dynamic from "next/dynamic";
 import { LoadoutCard } from "@/components/loadout/LoadoutCard";
 import { LoadoutStats } from "@/components/loadout/LoadoutStats";
-import { WeightBreakdownChart } from "@/components/loadout/WeightBreakdownChart";
 import { Button } from "@/components/ui/button";
+
+const WeightBreakdownChart = dynamic(
+  () =>
+    import("@/components/loadout/WeightBreakdownChart").then(
+      (m) => m.WeightBreakdownChart
+    ),
+  {
+    ssr: false,
+    loading: () => <Skeleton className="h-48 w-full" />,
+  }
+);
 import { Input } from "@/components/ui/input";
 import {
   Select,
